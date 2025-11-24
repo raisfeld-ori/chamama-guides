@@ -1,65 +1,161 @@
-import Image from "next/image";
+import { Hero } from "@/components/layout/hero";
+import { BlurFade } from "@/components/magicui/blur-fade";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { BookOpen, Code, Briefcase } from "lucide-react";
 
 export default function Home() {
+  const sections = [
+    {
+      icon: BookOpen,
+      title: "למידה",
+      description:
+        "תכנית לימודים מקיפה עם סרטונים, מדריכים ומשאבים לכל שנה ומסלול.",
+      href: "/learning/frontend",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: Code,
+      title: "פרויקטים",
+      description:
+        "פרויקטים מעשיים המותאמים לשנה ולהתמחות שלך לבניית תיק העבודות.",
+      href: "/projects/frontend",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: Briefcase,
+      title: "תעסוקה",
+      description:
+        "הדרכה קריירה, הכנה לראיונות ואסטרטגיות חיפוש עבודה לכל שנת לימוד.",
+      href: "/employment/year-1",
+      color: "from-orange-500 to-red-500",
+    },
+  ];
+
+  const tracks = [
+    {
+      title: "פרונטאנד",
+      description: "בנה ממשקי משתמש יפים",
+      technologies: ["React", "Next.js", "Tailwind CSS"],
+    },
+    {
+      title: "בקאנד",
+      description: "צור אפליקציות שרת חזקות",
+      technologies: ["Node.js", "Python", "מסדי נתונים"],
+    },
+    {
+      title: "ניהול תשתיות",
+      description: "פרוס ונהל תשתיות",
+      technologies: ["Docker", "CI/CD", "ענן"],
+    },
+    {
+      title: "מדעי הנתונים",
+      description: "נתח והצג נתונים",
+      technologies: ["Python", "ML", "אנליטיקה"],
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <Hero />
+
+      {/* Main Sections */}
+      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <BlurFade delay={0.2} inView>
+          <h2 className="mb-4 text-center text-3xl font-bold sm:text-4xl">
+            מסלול הלמידה שלך
+          </h2>
+          <p className="mx-auto mb-12 max-w-2xl text-center text-muted-foreground">
+            בחר את המסע שלך דרך שלושת המקטעים העיקריים שלנו
           </p>
+        </BlurFade>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {sections.map((section, index) => {
+            const Icon = section.icon;
+            return (
+              <BlurFade key={index} delay={0.2 + index * 0.1} inView>
+                <Link href={section.href}>
+                  <div className="group relative h-full overflow-hidden rounded-lg border bg-card p-8 transition-all hover:shadow-xl">
+                    <div
+                      className={`absolute inset-0 bg-linear-to-br ${section.color} opacity-0 transition-opacity group-hover:opacity-5`}
+                    />
+                    <Icon className="mb-4 h-12 w-12 text-primary" />
+                    <h3 className="mb-3 text-2xl font-semibold">
+                      {section.title}
+                    </h3>
+                    <p className="mb-4 text-muted-foreground">
+                      {section.description}
+                    </p>
+                    <Button variant="ghost" className="group-hover:translate-x-1 transition-transform">
+                      חקור ←
+                    </Button>
+                  </div>
+                </Link>
+              </BlurFade>
+            );
+          })}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Tracks Section */}
+      <section className="border-t bg-muted/30 py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <BlurFade delay={0.2} inView>
+            <h2 className="mb-4 text-center text-3xl font-bold sm:text-4xl">
+              ארבעה מסלולי התמחות
+            </h2>
+            <p className="mx-auto mb-12 max-w-2xl text-center text-muted-foreground">
+              בחר את ההתמחות שלך ושלוט במיומנויות שאתה צריך
+            </p>
+          </BlurFade>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {tracks.map((track, index) => (
+              <BlurFade key={index} delay={0.3 + index * 0.1} inView>
+                <div className="rounded-lg border bg-card p-6 transition-shadow hover:shadow-lg">
+                  <h3 className="mb-2 text-xl font-semibold">{track.title}</h3>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {track.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {track.technologies.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 lg:px-8">
+        <BlurFade delay={0.2} inView>
+          <div className="rounded-2xl border bg-card p-8 text-center sm:p-12">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl">
+              מוכן להתחיל את המסע שלך?
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
+              התחל עם שנה 1 ועבור דרך תכנית הלימודים המקיפה שלנו
+            </p>
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Button size="lg" asChild>
+                <Link href="/learning/frontend">התחל ללמוד עכשיו</Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/about">למד עוד על חממה</Link>
+              </Button>
+            </div>
+          </div>
+        </BlurFade>
+      </section>
+    </>
   );
 }

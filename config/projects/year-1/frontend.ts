@@ -1,0 +1,29 @@
+export const projects = [
+  {
+    id: "year-1-frontend-portfolio",
+    title: "אתר תיק עבודות אישי",
+    description: "בנה תיק עבודות אישי רספונסיבי באמצעות HTML, CSS ו-JavaScript בסיסי",
+    difficulty: "Beginner" as const,
+    estimatedTime: "3-4 שעות",
+    skills: ["HTML5", "CSS3", "עיצוב רספונסיבי"],
+    featured: true,
+  },
+  {
+    id: "year-1-frontend-landing",
+    title: "דף נחיתה למוצר",
+    description: "צור דף נחיתה מודרני עם אנימציות ועיצוב רספונסיבי",
+    difficulty: "Beginner" as const,
+    estimatedTime: "2-3 שעות",
+    skills: ["HTML", "CSS", "Flexbox", "Grid"],
+    featured: false,
+  },
+  {
+    id: "year-1-frontend-calculator",
+    title: "מחשבון אינטראקטיבי",
+    description: "בנה מחשבון פונקציונלי עם JavaScript",
+    difficulty: "Intermediate" as const,
+    estimatedTime: "4-5 שעות",
+    skills: ["HTML", "CSS", "JavaScript", "מניפולציה של DOM"],
+    featured: true,
+  },
+];
