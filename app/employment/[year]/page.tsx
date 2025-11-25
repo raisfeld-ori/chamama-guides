@@ -1,14 +1,30 @@
 import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import {
-  Briefcase,
-  FileText,
-  Users,
-  Target,
-  BookOpen,
-  Linkedin,
-} from "lucide-react";
+import { BookOpen } from "lucide-react";
+
+// Utility function to detect and render links
+const renderTextWithLinks = (text: string) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      return (
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline hover:text-primary/80"
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+};
 
 // Import employment configs
 const getEmploymentGuide = async (year: string) => {
@@ -68,14 +84,13 @@ export default async function EmploymentPage({
                 </div>
 
                 <div className="ml-16">
-                  <h3 className="mb-4 font-semibold">Action Items:</h3>
                   <ul className="space-y-3">
                     {section.actions.map((action: string, i: number) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">
                           {i + 1}
                         </span>
-                        <span>{action}</span>
+                        <span>{renderTextWithLinks(action)}</span>
                       </li>
                     ))}
                   </ul>
