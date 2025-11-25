@@ -3,48 +3,54 @@ export const config = {
   description: "למד את יסודות תכנות צד שרת",
   sections: [
     {
-      title: "מבוא ל-Backend",
+      title: "בניית השרת הראשון",
       blocks: [
         {
           type: "video" as const,
-          title: "מה זה פיתוח Backend?",
-          youtubeId: "cbSrsYiRamo",
+          title:"תכנות בשפת פייתון",
+          youtubeId: "rfscVS0vtbw",
           description: "הבנת תכנות צד שרת",
         },
         {
           type: "text" as const,
-          title: "יסודות Backend",
-          content:
-            "פיתוח Backend מתמקד בלוגיקה של צד השרת, מסדי נתונים ו-APIs. כמפתח Backend, תעבוד עם:\n\n1. שפות צד שרת (Node.js, Python ועוד)\n2. מסדי נתונים (SQL ו-NoSQL)\n3. APIs ושירותי אינטרנט\n4. אימות ואבטחה",
+          title: "להתנסות קצת עם פייתון",
+          content: "סיימתם את הסרטון? תתנסו קצת עם פייתון, תבנו שטויות",
         },
       ],
     },
     {
-      title: "יסודות Node.js",
+      title: "ללמוד להכין תוצרים",
       blocks: [
         {
           type: "video" as const,
-          title: "התחלה עם Node.js",
-          youtubeId: "TlB_eWDSMt4",
-          description: "למד את היסודות של Node.js",
+          title: "אפשרות אחת: ללמוד flask",
+          youtubeId: "Z1RJmh_OqeA",
+          description: "הכלי הכי פופולרי לבניית שרתים",
         },
         {
-          type: "link" as const,
-          title: "תיעוד רשמי של Node.js",
-          url: "https://nodejs.org/docs/latest/api/",
-          description: "מדריך API מלא של Node.js",
-        },
+          type: "video" as const,
+          title: "אפשרות שנייה: ללמוד QT",
+          youtubeId: "Z1N9JzNax2k",
+          description: "המערכת אחת הגדולות ביותר בשביל בניית אפליקציות"
+        }
       ],
     },
     {
-      title: "פרויקטי תרגול",
+      title: "בחרו פרויקט ראשון",
       blocks: [
         {
           type: "project" as const,
-          title: "REST API פשוט",
+          title: "שרת לתיכון החממה",
           projectId: "year-1-backend-rest-api",
-          description: "בנה את ה-REST API הראשון שלך עם Node.js",
-          difficulty: "Beginner" as const,
+          description: "השרת פייתון הראשון שלך",
+          difficulty: "קל" as const,
+        },
+        {
+          type: "project" as const,
+          title: "אפליקציה לתיכון החממה",
+          projectId: "year-1-backend-application",
+          description: "האפליקציה הראשונה שלכם",
+          difficulty: "קל" as const,
         },
       ],
     },

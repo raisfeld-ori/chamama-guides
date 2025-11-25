@@ -1,77 +1,24 @@
 import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, CheckCircle2, Github, ExternalLink } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { notFound } from "next/navigation";
 
-// Sample project detail data
+// Import all project configs
+import { projects as frontendYear1 } from "@/config/projects/year-1/frontend";
+import { projects as backendYear1 } from "@/config/projects/year-1/backend";
+import { projects as devopsYear1 } from "@/config/projects/year-1/devops";
+import { projects as dataYear1 } from "@/config/projects/year-1/data-science";
+
+const allProjects = [
+  ...frontendYear1,
+  ...backendYear1,
+  ...devopsYear1,
+  ...dataYear1,
+];
+
 const getProjectDetails = (projectId: string) => {
-  return {
-    id: projectId,
-    title: "Build a Modern Web Application",
-    description:
-      "Create a fully functional web application with modern technologies and best practices",
-    difficulty: "Intermediate",
-    estimatedTime: "4-6 hours",
-    objectives: [
-      "Understand component-based architecture",
-      "Implement state management",
-      "Connect to external APIs",
-      "Handle user authentication",
-      "Deploy to production",
-    ],
-    requirements: [
-      "Basic knowledge of HTML, CSS, and JavaScript",
-      "Familiarity with React or similar framework",
-      "Understanding of REST APIs",
-      "Git and GitHub account",
-    ],
-    steps: [
-      {
-        title: "Setup Your Development Environment",
-        content:
-          "Install Node.js, create a new project, and set up your code editor with necessary extensions.",
-      },
-      {
-        title: "Create the Project Structure",
-        content:
-          "Organize your files and folders following best practices. Set up routing and basic components.",
-      },
-      {
-        title: "Build the User Interface",
-        content:
-          "Design and implement the UI components using modern CSS frameworks and responsive design principles.",
-      },
-      {
-        title: "Implement Core Functionality",
-        content:
-          "Add business logic, state management, and connect to APIs for dynamic data.",
-      },
-      {
-        title: "Testing and Debugging",
-        content:
-          "Write tests for your components and fix any bugs. Ensure cross-browser compatibility.",
-      },
-      {
-        title: "Deploy Your Application",
-        content:
-          "Deploy your project to a hosting platform like Vercel, Netlify, or GitHub Pages.",
-      },
-    ],
-    resources: [
-      {
-        title: "Official Documentation",
-        url: "https://react.dev",
-      },
-      {
-        title: "Tutorial Video Series",
-        url: "https://youtube.com",
-      },
-      {
-        title: "GitHub Repository Template",
-        url: "https://github.com",
-      },
-    ],
-  };
+  return allProjects.find((p) => p.id === projectId);
 };
 
 export default async function ProjectDetailPage({
@@ -82,13 +29,21 @@ export default async function ProjectDetailPage({
   const { projectId } = await params;
   const project = getProjectDetails(projectId);
 
+  if (!project) {
+    notFound();
+  }
+
+  // Extract category from project ID (e.g., "year-1-frontend-portfolio" -> "frontend")
+  const categoryMatch = project.id.match(/year-\d+-([^-]+)/);
+  const category = categoryMatch ? categoryMatch[1] : "frontend";
+
   return (
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <BlurFade delay={0.1}>
         <Button variant="ghost" className="mb-6" asChild>
-          <Link href="/projects/year-1">
+          <Link href={`/projects/${category}`}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
+            חזרה לפרויקטים
           </Link>
         </Button>
 
@@ -110,50 +65,45 @@ export default async function ProjectDetailPage({
         <div className="lg:col-span-2">
           <BlurFade delay={0.2} inView>
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold">Learning Objectives</h2>
-              <ul className="space-y-3">
-                {project.objectives.map((objective, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <span>{objective}</span>
-                  </li>
+              <h2 className="mb-4 text-2xl font-bold">מיומנויות</h2>
+              <div className="flex flex-wrap gap-2">
+                {project.skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="rounded-full border bg-background px-4 py-2 text-sm"
+                  >
+                    {skill}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </section>
           </BlurFade>
 
-          <BlurFade delay={0.3} inView>
-            <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold">Prerequisites</h2>
-              <ul className="space-y-3">
-                {project.requirements.map((req, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
-                    <span className="text-muted-foreground">{req}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </BlurFade>
+          {project.longDescription && (
+            <BlurFade delay={0.3} inView>
+              <section className="mb-8">
+                <h2 className="mb-4 text-2xl font-bold">תיאור מפורט</h2>
+                <div className="rounded-lg border bg-card p-6">
+                  <p className="whitespace-pre-wrap text-muted-foreground">
+                    {project.longDescription}
+                  </p>
+                </div>
+              </section>
+            </BlurFade>
+          )}
 
           <BlurFade delay={0.4} inView>
             <section>
-              <h2 className="mb-6 text-2xl font-bold">Project Steps</h2>
-              <div className="space-y-6">
-                {project.steps.map((step, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border bg-card p-6"
-                  >
-                    <div className="mb-2 flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                        {index + 1}
-                      </span>
-                      <h3 className="text-xl font-semibold">{step.title}</h3>
-                    </div>
-                    <p className="ml-11 text-muted-foreground">{step.content}</p>
-                  </div>
-                ))}
+              <h2 className="mb-6 text-2xl font-bold">פרטים נוספים</h2>
+              <div className="space-y-4">
+                <div className="rounded-lg border bg-card p-6">
+                  <h3 className="mb-2 text-lg font-semibold">רמת קושי</h3>
+                  <p className="text-muted-foreground">{project.difficulty}</p>
+                </div>
+                <div className="rounded-lg border bg-card p-6">
+                  <h3 className="mb-2 text-lg font-semibold">זמן משוער</h3>
+                  <p className="text-muted-foreground">{project.estimatedTime}</p>
+                </div>
               </div>
             </section>
           </BlurFade>
@@ -162,44 +112,13 @@ export default async function ProjectDetailPage({
         <div className="lg:col-span-1">
           <BlurFade delay={0.2} inView>
             <div className="sticky top-20 space-y-6">
-              <div className="rounded-lg border bg-card p-6">
-                <h3 className="mb-4 text-xl font-semibold">Resources</h3>
-                <div className="space-y-3">
-                  {project.resources.map((resource, index) => (
-                    <Link
-                      key={index}
-                      href={resource.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm text-primary hover:underline"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      {resource.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-lg border bg-card p-6">
-                <h3 className="mb-4 text-xl font-semibold">Submit Your Work</h3>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  Once you complete the project, share your work on GitHub
-                </p>
-                <Button className="w-full" asChild>
-                  <Link href="https://github.com" target="_blank">
-                    <Github className="mr-2 h-4 w-4" />
-                    Submit on GitHub
-                  </Link>
-                </Button>
-              </div>
-
               <div className="rounded-lg border bg-muted/50 p-6">
-                <h3 className="mb-2 text-lg font-semibold">Need Help?</h3>
+                <h3 className="mb-2 text-lg font-semibold">מוכן להתחיל?</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  Join our community for support and guidance
+                  התחל לעבוד על הפרויקט ושתף את העבודה שלך
                 </p>
                 <Button variant="outline" className="w-full" asChild>
-                  <Link href="/contact">Get Support</Link>
+                  <Link href={`/projects/${category}`}>חזרה לרשימה</Link>
                 </Button>
               </div>
             </div>
