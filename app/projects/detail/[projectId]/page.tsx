@@ -53,14 +53,14 @@ export default async function ProjectDetailPage({
           <div className="mt-4 flex flex-wrap gap-4 text-sm">
             <span className={`rounded-full border px-4 py-2 font-medium ${
               project.difficulty === "קל" 
-                ? "bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20"
+                ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20"
                 : project.difficulty === "בינוני"
-                ? "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20"
-                : "bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20"
+                ? "bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-500/20"
+                : "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20"
             }`}>
               {project.difficulty}
             </span>
-            <span className="rounded-full bg-muted px-4 py-2">
+            <span className="rounded-full bg-emerald-50 border border-emerald-200 px-4 py-2 text-emerald-700 font-medium">
               ⏱️ {project.estimatedTime}
             </span>
           </div>

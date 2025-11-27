@@ -16,9 +16,9 @@ export function ProjectLink({
   difficulty = "Beginner",
 }: ProjectLinkProps) {
   const difficultyColors = {
-    Beginner: "bg-green-500/10 text-green-700 dark:text-green-400",
-    Intermediate: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400",
-    Advanced: "bg-red-500/10 text-red-700 dark:text-red-400",
+    Beginner: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20",
+    Intermediate: "bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-500/20",
+    Advanced: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20",
   };
 
   return (

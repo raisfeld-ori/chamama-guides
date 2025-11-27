@@ -1,9 +1,11 @@
+"use client"
 import { Hero } from "@/components/layout/hero";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { BookOpen, Code, Briefcase } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const sections = [
@@ -102,10 +104,34 @@ export default function Home() {
                         className="transition-all duration-300"
                       />
 
-                      {/* Decorative circles */}
-                      <circle cx="80" cy="100" r="15" fill={section.color} opacity="0.3" />
-                      <circle cx="220" cy="120" r="20" fill={section.color} opacity="0.2" />
-                      <circle cx="100" cy="220" r="12" fill={section.color} opacity="0.25" />
+                      {/* Decorative circles with motion */}
+                      <motion.circle 
+                        cx="80" 
+                        cy="100" 
+                        r="15" 
+                        fill={section.color} 
+                        opacity="0.3"
+                        animate={{ x: [-3, 3, -3] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <motion.circle 
+                        cx="220" 
+                        cy="120" 
+                        r="20" 
+                        fill={section.color} 
+                        opacity="0.2"
+                        animate={{ x: [3, -3, 3] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                      />
+                      <motion.circle 
+                        cx="100" 
+                        cy="220" 
+                        r="12" 
+                        fill={section.color} 
+                        opacity="0.25"
+                        animate={{ x: [-2, 2, -2] }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                      />
 
                       {/* Main icon circle */}
                       <circle
@@ -123,10 +149,40 @@ export default function Home() {
                         </div>
                       </foreignObject>
 
-                      {/* Decorative lines */}
-                      <line x1="150" y1="50" x2="150" y2="90" stroke={section.color} strokeWidth="3" opacity="0.4" />
-                      <line x1="50" y1="150" x2="90" y2="150" stroke={section.color} strokeWidth="3" opacity="0.4" />
-                      <line x1="250" y1="150" x2="210" y2="150" stroke={section.color} strokeWidth="3" opacity="0.4" />
+                      {/* Decorative lines with motion */}
+                      <motion.line 
+                        x1="150" 
+                        y1="50" 
+                        x2="150" 
+                        y2="90" 
+                        stroke={section.color} 
+                        strokeWidth="3" 
+                        opacity="0.4"
+                        animate={{ x1: [148, 152, 148], x2: [148, 152, 148] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <motion.line 
+                        x1="50" 
+                        y1="150" 
+                        x2="90" 
+                        y2="150" 
+                        stroke={section.color} 
+                        strokeWidth="3" 
+                        opacity="0.4"
+                        animate={{ x1: [48, 52, 48], x2: [88, 92, 88] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                      />
+                      <motion.line 
+                        x1="250" 
+                        y1="150" 
+                        x2="210" 
+                        y2="150" 
+                        stroke={section.color} 
+                        strokeWidth="3" 
+                        opacity="0.4"
+                        animate={{ x1: [248, 252, 248], x2: [208, 212, 208] }}
+                        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+                      />
 
                       {/* Text overlay on SVG with better styling */}
                       <foreignObject x="50" y="235" width="200" height="60">
@@ -195,10 +251,34 @@ export default function Home() {
                       {/* Background blob - centered circle */}
                       <circle cx="100" cy="100" r="85" fill={track.lightColor} />
 
-                      {/* Decorative circles */}
-                      <circle cx="50" cy="60" r="10" fill={track.color} opacity="0.3" />
-                      <circle cx="150" cy="70" r="12" fill={track.color} opacity="0.2" />
-                      <circle cx="60" cy="150" r="8" fill={track.color} opacity="0.25" />
+                      {/* Decorative circles with motion */}
+                      <motion.circle 
+                        cx="50" 
+                        cy="60" 
+                        r="10" 
+                        fill={track.color} 
+                        opacity="0.3"
+                        animate={{ x: [-2, 2, -2] }}
+                        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+                      />
+                      <motion.circle 
+                        cx="150" 
+                        cy="70" 
+                        r="12" 
+                        fill={track.color} 
+                        opacity="0.2"
+                        animate={{ x: [2, -2, 2] }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
+                      />
+                      <motion.circle 
+                        cx="60" 
+                        cy="150" 
+                        r="8" 
+                        fill={track.color} 
+                        opacity="0.25"
+                        animate={{ x: [-1.5, 1.5, -1.5] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.25 }}
+                      />
 
                       {/* Main shape */}
                       <path
@@ -224,10 +304,40 @@ export default function Home() {
                         </>
                       )}
 
-                      {/* Decorative lines */}
-                      <line x1="100" y1="15" x2="100" y2="30" stroke={track.color} strokeWidth="2" opacity="0.4" />
-                      <line x1="15" y1="100" x2="30" y2="100" stroke={track.color} strokeWidth="2" opacity="0.4" />
-                      <line x1="185" y1="100" x2="170" y2="100" stroke={track.color} strokeWidth="2" opacity="0.4" />
+                      {/* Decorative lines with motion */}
+                      <motion.line 
+                        x1="100" 
+                        y1="15" 
+                        x2="100" 
+                        y2="30" 
+                        stroke={track.color} 
+                        strokeWidth="2" 
+                        opacity="0.4"
+                        animate={{ x1: [98, 102, 98], x2: [98, 102, 98] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.15 }}
+                      />
+                      <motion.line 
+                        x1="15" 
+                        y1="100" 
+                        x2="30" 
+                        y2="100" 
+                        stroke={track.color} 
+                        strokeWidth="2" 
+                        opacity="0.4"
+                        animate={{ x1: [13, 17, 13], x2: [28, 32, 28] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+                      />
+                      <motion.line 
+                        x1="185" 
+                        y1="100" 
+                        x2="170" 
+                        y2="100" 
+                        stroke={track.color} 
+                        strokeWidth="2" 
+                        opacity="0.4"
+                        animate={{ x1: [183, 187, 183], x2: [168, 172, 168] }}
+                        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: index * 0.25 }}
+                      />
                     </svg>
 
                     {/* Content below SVG */}

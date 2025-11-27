@@ -24,6 +24,13 @@ This document describes the complete design system for the Chamama Guides websit
 - **Text Secondary**: `#6b7280` (gray-500)
 - **Background**: White to emerald-50 gradients
 
+### Difficulty Badge Colors (Green Shades Only)
+- **Easy/קל**: Emerald (`bg-emerald-500/10 text-emerald-700 border-emerald-500/20`)
+- **Medium/בינוני**: Teal (`bg-teal-500/10 text-teal-700 border-teal-500/20`)
+- **Hard/קשה**: Cyan (`bg-cyan-500/10 text-cyan-700 border-cyan-500/20`)
+
+**Note**: All difficulty levels use green-family colors to maintain consistency with the overall design theme.
+
 ## Typography
 
 ### Font Weights
@@ -80,21 +87,39 @@ This document describes the complete design system for the Chamama Guides websit
 #### Structure
 All SVG illustrations follow this pattern:
 - **ViewBox**: `0 0 200 200` or `0 0 300 300`
-- **Background**: Organic blob shape with light color
-- **Main Icon**: Centered shape in primary color
-- **Decorative Elements**: Small circles and lines for visual interest
+- **Background**: Organic blob shape with light color (static)
+- **Main Icon**: Centered shape in primary color (static)
+- **Decorative Elements**: Small circles and lines with subtle left-right motion
 - **Text Overlay**: Integrated using `<foreignObject>`
+
+#### Framer Motion Animations
+Decorative elements (circles and lines) use framer-motion for subtle horizontal movement:
+- **Movement Range**: 2-4px left and right
+- **Duration**: 2.5-4 seconds per cycle
+- **Easing**: `easeInOut` for smooth motion
+- **Delays**: Staggered (0.2-1s) to create organic feel
+- **Background blobs and main shapes remain static**
 
 #### Example (Main Sections)
 ```tsx
+import { motion } from "framer-motion";
+
 <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-  {/* Background blob */}
+  {/* Background blob - STATIC */}
   <path d="M150,50 Q250,80 250,150 Q250,220 150,250 Q50,220 50,150 Q50,80 150,50 Z" fill={lightColor} />
   
-  {/* Decorative circles */}
-  <circle cx="80" cy="100" r="15" fill={color} opacity="0.3" />
+  {/* Decorative circles - ANIMATED */}
+  <motion.circle 
+    cx="80" 
+    cy="100" 
+    r="15" 
+    fill={color} 
+    opacity="0.3"
+    animate={{ x: [-3, 3, -3] }}
+    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+  />
   
-  {/* Main icon circle */}
+  {/* Main icon circle - STATIC */}
   <circle cx="150" cy="150" r="60" fill={color} />
   
   {/* Icon using foreignObject */}
@@ -103,6 +128,19 @@ All SVG illustrations follow this pattern:
       <Icon className="h-12 w-12 text-white" strokeWidth={2.5} />
     </div>
   </foreignObject>
+  
+  {/* Decorative lines - ANIMATED */}
+  <motion.line 
+    x1="150" 
+    y1="50" 
+    x2="150" 
+    y2="90" 
+    stroke={color} 
+    strokeWidth="3" 
+    opacity="0.4"
+    animate={{ x1: [148, 152, 148], x2: [148, 152, 148] }}
+    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+  />
   
   {/* Text overlay */}
   <foreignObject x="50" y="235" width="200" height="60">
@@ -203,6 +241,41 @@ Interactive button that moves 3 times before becoming clickable:
 - After first hover: "תפסו אותי! 😜" (moves randomly)
 - After 3 hovers: Returns to original text and stays clickable
 
+## Roadmap Design Pattern
+
+### Learning Content Pages
+Learning content pages use a vertical roadmap design with the following features:
+
+#### Layout Structure
+- **Vertical center line**: Dotted border (`border-r-2 border-dashed border-emerald-300`)
+- **Content positioning**: Alternates between left, center, and right (pattern: `['left', 'center', 'right']`)
+- **Connector dots**: Colored circles on the center line matching content type
+- **Horizontal connectors**: Dotted lines from center to content (except for center-positioned items)
+
+#### Content Cards
+- **Smaller size**: Compact cards with `p-4` padding
+- **Text sizes**: 
+  - Title: `text-base font-black`
+  - Description: `text-xs`
+  - Buttons: `size="sm"` with `text-xs`
+- **Color coding by type**:
+  - Video: Emerald (`bg-emerald-50`, `border-emerald-300`, `bg-emerald-500`)
+  - Text: Teal (`bg-teal-50`, `border-teal-300`, `bg-teal-500`)
+  - Link: Cyan (`bg-cyan-50`, `border-cyan-300`, `bg-cyan-500`)
+  - Project: Lime (`bg-lime-50`, `border-lime-300`, `bg-lime-500`)
+
+#### Interactive Elements
+- **Icon badges**: 10x10 circles with white icons
+- **Section badges**: Small pills showing section titles
+- **Hover effects**: `hover:scale-105` and `hover:shadow-xl`
+- **End marker**: Gradient circle with white dot center
+
+#### Positioning Logic
+```tsx
+const positions = ['left', 'center', 'right'];
+position: positions[(sectionIndex + blockIndex) % 3]
+```
+
 ## File Structure
 
 ```
@@ -210,13 +283,22 @@ app/
 ├── page.tsx                    # Homepage with main sections
 ├── layout.tsx                  # Root layout
 ├── globals.css                 # Global styles and animations
-└── about/page.tsx             # About page
+├── about/page.tsx             # About page
+└── learning/
+    └── [category]/
+        └── [year]/
+            └── page.tsx       # Roadmap-style learning content
 
 components/
 ├── layout/
 │   ├── header.tsx             # Navigation with dropdown
 │   ├── hero.tsx               # Hero section
 │   └── footer.tsx             # Footer
+├── learning/
+│   ├── video-block.tsx        # Video content block
+│   ├── text-block.tsx         # Text content block
+│   ├── link-block.tsx         # External link block
+│   └── project-link.tsx       # Project reference block
 ├── ui/
 │   ├── button.tsx             # Button component
 │   └── playful-button.tsx     # Interactive button
@@ -314,3 +396,7 @@ When working with this design system:
 8. Keep the casual, student-friendly tone
 9. Use Lucide React icons, not emojis in code (except for decorative purposes)
 10. Test all SVG shapes are properly centered before finalizing
+11. **Animate decorative elements only** - Use framer-motion for circles and lines with subtle 2-4px horizontal movement
+12. **Keep backgrounds and main shapes static** - Only decorative elements should move
+13. **Stagger animation delays** - Use different delays (0.2-1s) for organic feel
+14. **Use easeInOut easing** - For smooth, natural motion

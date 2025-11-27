@@ -5,7 +5,7 @@ import { ProjectLink } from "@/components/learning/project-link";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Play, FileText, ExternalLink, Code } from "lucide-react";
 
 // Import config files
 const getLearningContent = async (category: string, year: string) => {
@@ -42,75 +42,197 @@ export default async function LearningContentPage({
   const { category, year } = await params;
   const content = await getLearningContent(category, year);
 
+  // Position patterns: left, center, right
+  const positions = ['left', 'center', 'right'];
+  
+  // Get icon for block type
+  const getBlockIcon = (type: string) => {
+    switch (type) {
+      case 'video': return Play;
+      case 'text': return FileText;
+      case 'link': return ExternalLink;
+      case 'project': return Code;
+      default: return FileText;
+    }
+  };
+
+  // Get color for block type
+  const getBlockColor = (type: string) => {
+    switch (type) {
+      case 'video': return { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-700', dot: 'bg-emerald-500' };
+      case 'text': return { bg: 'bg-teal-50', border: 'border-teal-300', text: 'text-teal-700', dot: 'bg-teal-500' };
+      case 'link': return { bg: 'bg-cyan-50', border: 'border-cyan-300', text: 'text-cyan-700', dot: 'bg-cyan-500' };
+      case 'project': return { bg: 'bg-lime-50', border: 'border-lime-300', text: 'text-lime-700', dot: 'bg-lime-500' };
+      default: return { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-700', dot: 'bg-emerald-500' };
+    }
+  };
+
+  // Flatten all blocks with their section info
+  const allBlocks = content.sections.flatMap((section: any, sectionIndex: number) =>
+    section.blocks.map((block: any, blockIndex: number) => ({
+      ...block,
+      sectionTitle: section.title,
+      sectionIndex,
+      blockIndex,
+      position: positions[(sectionIndex + blockIndex) % 3],
+    }))
+  );
+
   return (
-    <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      <BlurFade delay={0.1}>
-        <Button variant="ghost" className="mb-6" asChild>
-          <Link href={`/learning/${category}`}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            חזרה לבחירת שנה
-          </Link>
-        </Button>
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50">
+      <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <BlurFade delay={0.1}>
+          <Button variant="ghost" className="mb-6" asChild>
+            <Link href={`/learning/${category}`}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              חזרה לבחירת שנה
+            </Link>
+          </Button>
 
-        <h1 className="mb-4 text-4xl font-bold sm:text-5xl">{content.title}</h1>
-        <p className="mb-12 text-lg text-muted-foreground">
-          {content.description}
-        </p>
-      </BlurFade>
+          <div className="text-center mb-16">
+            <h1 className="mb-4 text-4xl font-black sm:text-5xl gradient-green-shimmer animate-shimmer">{content.title}</h1>
+            <p className="text-base text-gray-700 font-medium max-w-2xl mx-auto">
+              {content.description}
+            </p>
+          </div>
+        </BlurFade>
 
-      <div className="space-y-12">
-        {content.sections.map((section: any, sectionIndex: number) => (
-          <BlurFade key={sectionIndex} delay={0.2 + sectionIndex * 0.1} inView>
-            <div>
-              <h2 className="mb-6 text-2xl font-bold">{section.title}</h2>
-              <div className="grid gap-6">
-                {section.blocks.map((block: any, blockIndex: number) => {
-                  if (block.type === "video") {
-                    return (
-                      <VideoBlock
-                        key={blockIndex}
-                        title={block.title}
-                        youtubeId={block.youtubeId}
-                        description={block.description}
-                      />
-                    );
-                  }
-                  if (block.type === "text") {
-                    return (
-                      <TextBlock
-                        key={blockIndex}
-                        title={block.title}
-                        content={block.content}
-                      />
-                    );
-                  }
-                  if (block.type === "link") {
-                    return (
-                      <LinkBlock
-                        key={blockIndex}
-                        title={block.title}
-                        url={block.url}
-                        description={block.description}
-                      />
-                    );
-                  }
-                  if (block.type === "project") {
-                    return (
-                      <ProjectLink
-                        key={blockIndex}
-                        title={block.title}
-                        projectId={block.projectId}
-                        description={block.description}
-                        difficulty={block.difficulty}
-                      />
-                    );
-                  }
-                  return null;
-                })}
+        {/* Roadmap */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Vertical dotted line */}
+          <div className="absolute right-1/2 top-0 bottom-0 w-0.5 border-r-2 border-dashed border-emerald-300" />
+
+          {allBlocks.map((block: any, index: number) => {
+            const Icon = getBlockIcon(block.type);
+            const colors = getBlockColor(block.type);
+            const isLeft = block.position === 'left';
+            const isCenter = block.position === 'center';
+            const isRight = block.position === 'right';
+
+            return (
+              <BlurFade key={index} delay={0.2 + index * 0.05} inView>
+                <div className="relative mb-12">
+                  {/* Connector dot on the center line */}
+                  <div className={`absolute right-1/2 top-8 w-4 h-4 rounded-full ${colors.dot} border-4 border-white shadow-lg transform translate-x-1/2 z-10`} />
+                  
+                  {/* Horizontal dotted line to content */}
+                  {!isCenter && (
+                    <div 
+                      className={`absolute top-9 h-0.5 border-t-2 border-dashed border-emerald-300 ${
+                        isLeft ? 'right-1/2 left-[8%]' : 'left-1/2 right-[8%]'
+                      }`}
+                    />
+                  )}
+
+                  {/* Content card */}
+                  <div className={`relative ${
+                    isLeft ? 'mr-auto ml-0 pr-[52%]' : 
+                    isRight ? 'ml-auto mr-0 pl-[52%]' : 
+                    'mx-auto max-w-md'
+                  }`}>
+                    <div className={`group rounded-xl border-2 ${colors.border} ${colors.bg} p-4 shadow-md hover:shadow-xl transition-all hover:scale-105 ${
+                      isCenter ? 'text-center' : isLeft ? 'text-right' : 'text-left'
+                    }`}>
+                      {/* Icon badge */}
+                      <div className={`inline-flex items-center justify-center w-10 h-10 rounded-full ${colors.dot} mb-3`}>
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
+
+                      {/* Section badge */}
+                      {index === 0 || allBlocks[index - 1].sectionTitle !== block.sectionTitle ? (
+                        <div className="mb-2">
+                          <span className="inline-block px-3 py-1 text-xs font-black bg-white/80 rounded-full border border-emerald-200 text-emerald-700">
+                            {block.sectionTitle}
+                          </span>
+                        </div>
+                      ) : null}
+
+                      {/* Title */}
+                      <h3 className={`text-base font-black mb-2 ${colors.text}`}>
+                        {block.title}
+                      </h3>
+
+                      {/* Description */}
+                      {block.description && (
+                        <p className="text-xs text-gray-600 font-medium mb-3 line-clamp-2">
+                          {block.description}
+                        </p>
+                      )}
+
+                      {/* Type-specific content */}
+                      {block.type === 'video' && block.youtubeId && (
+                        <Button 
+                          size="sm" 
+                          className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-xs"
+                          asChild
+                        >
+                          <a href={`https://www.youtube.com/watch?v=${block.youtubeId}`} target="_blank" rel="noopener noreferrer">
+                            <Play className="w-3 h-3 ml-1" />
+                            צפה בסרטון
+                          </a>
+                        </Button>
+                      )}
+
+                      {block.type === 'link' && block.url && (
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          className="w-full border-2 border-cyan-500 text-cyan-700 hover:bg-cyan-50 font-bold text-xs"
+                          asChild
+                        >
+                          <a href={block.url} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-3 h-3 ml-1" />
+                            פתח קישור
+                          </a>
+                        </Button>
+                      )}
+
+                      {block.type === 'project' && block.projectId && (
+                        <Button 
+                          size="sm" 
+                          className="w-full bg-gradient-to-r from-lime-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-white font-bold text-xs"
+                          asChild
+                        >
+                          <Link href={`/projects/detail/${block.projectId}`}>
+                            <Code className="w-3 h-3 ml-1" />
+                            פרטי הפרויקט
+                          </Link>
+                        </Button>
+                      )}
+
+                      {block.type === 'text' && block.content && (
+                        <div className="text-xs text-gray-700 font-medium bg-white/50 rounded-lg p-3 mt-2">
+                          <p className="line-clamp-3">{block.content}</p>
+                        </div>
+                      )}
+
+                      {/* Difficulty badge for projects */}
+                      {block.difficulty && (
+                        <div className="mt-2">
+                          <span className="inline-block px-2 py-1 text-[10px] font-bold bg-white rounded-full border border-emerald-200 text-emerald-600">
+                            {block.difficulty}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </BlurFade>
+            );
+          })}
+
+          {/* End marker */}
+          <BlurFade delay={0.2 + allBlocks.length * 0.05} inView>
+            <div className="relative text-center pb-8">
+              <div className="absolute right-1/2 top-0 w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 border-4 border-white shadow-lg transform translate-x-1/2 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-white" />
+              </div>
+              <div className="pt-12">
+                <p className="text-sm font-black text-emerald-700">🎉 סיימת את המסלול!</p>
               </div>
             </div>
           </BlurFade>
-        ))}
+        </div>
       </div>
     </div>
   );

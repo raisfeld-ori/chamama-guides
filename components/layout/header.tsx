@@ -132,9 +132,9 @@ const navigationItems: NavItem[] = [
         description: "מנהיגות טכנית",
         svg: (
           <svg viewBox="0 0 60 60" className="w-full h-full">
-            <circle cx="30" cy="30" r="28" fill="#fef3c7" />
-            <path d="M30,18 L35,28 L45,28 L37,35 L40,45 L30,38 L20,45 L23,35 L15,28 L25,28 Z" fill="#f59e0b" />
-            <text x="30" y="48" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#f59e0b">4</text>
+            <circle cx="30" cy="30" r="28" fill="#ecfccb" />
+            <path d="M30,18 L35,28 L45,28 L37,35 L40,45 L30,38 L20,45 L23,35 L15,28 L25,28 Z" fill="#84cc16" />
+            <text x="30" y="48" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#84cc16">4</text>
           </svg>
         ),
       },
