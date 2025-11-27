@@ -29,4 +29,26 @@ export const projects = [
     skills: ["Python", "Network Protocols", "Routing", "OSI Model", "Packet Simulation"],
     featured: true,
   },
+
+  {
+    id: "year-1-devops-nginx-website",
+    title: "Deploy a static website with Nginx",
+    description: "Serve a simple HTML file (your static website) using the lightweight Nginx web server, all running inside a single Docker container.",
+    longDescription: "This project is the quintessential starting point for any beginner in Docker, teaching the core workflow of defining an image and running a container. You will create a simple HTML file and package it, along with a minimal Nginx web server, into a single, portable Docker image..",
+    difficulty: "קל" as const,
+    estimatedTime: "45-75 minutes",
+    skills: ["Docker", "Network Protocols", "Cache", "Nginx"],
+    featured: true,
+  },
+
+  {
+    id: "year-1-devops-ngrok-tunnel",
+    title: "Expose a Local Server to the Internet with ngrok",
+    description: "Create a public HTTPS URL that tunnels traffic from the internet directly to a local, running Python file server.",
+    longDescription: "This project teaches **network tunneling**, demonstrating how to bypass firewalls and NATs to expose a local service to the world. You will first spin up a **simple HTTP file server** using Python's built-in `http.server` module on a local port (e.g., 8000). Then, you'll use the **ngrok utility** to create a secure, public **HTTPS URL**. Traffic hitting that public URL will be securely 'tunneled' back to your local machine, allowing you to share files or test external services (like webhooks) without deploying your code.",
+    difficulty: "קל" as const,
+    estimatedTime: "20-35 minutes",
+    skills: ["Networking", "ngrok", "Local Servers", "Webhooks (Intro)"],
+    featured: true,
+  },
 ];
