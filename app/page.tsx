@@ -14,7 +14,7 @@ export default function Home() {
       title: "למידה",
       description:
         "תכנית לימודים מקיפה עם סרטונים, מדריכים ומשאבים לכל שנה ומסלול.",
-      href: "/learning/frontend",
+      href: "/learning",
       color: "#10b981",
       lightColor: "#d1fae5",
     },
@@ -105,29 +105,29 @@ export default function Home() {
                       />
 
                       {/* Decorative circles with motion */}
-                      <motion.circle 
-                        cx="80" 
-                        cy="100" 
-                        r="15" 
-                        fill={section.color} 
+                      <motion.circle
+                        cx="80"
+                        cy="100"
+                        r="15"
+                        fill={section.color}
                         opacity="0.3"
                         animate={{ x: [-3, 3, -3] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                       />
-                      <motion.circle 
-                        cx="220" 
-                        cy="120" 
-                        r="20" 
-                        fill={section.color} 
+                      <motion.circle
+                        cx="220"
+                        cy="120"
+                        r="20"
+                        fill={section.color}
                         opacity="0.2"
                         animate={{ x: [3, -3, 3] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                       />
-                      <motion.circle 
-                        cx="100" 
-                        cy="220" 
-                        r="12" 
-                        fill={section.color} 
+                      <motion.circle
+                        cx="100"
+                        cy="220"
+                        r="12"
+                        fill={section.color}
                         opacity="0.25"
                         animate={{ x: [-2, 2, -2] }}
                         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -150,35 +150,35 @@ export default function Home() {
                       </foreignObject>
 
                       {/* Decorative lines with motion */}
-                      <motion.line 
-                        x1="150" 
-                        y1="50" 
-                        x2="150" 
-                        y2="90" 
-                        stroke={section.color} 
-                        strokeWidth="3" 
+                      <motion.line
+                        x1="150"
+                        y1="50"
+                        x2="150"
+                        y2="90"
+                        stroke={section.color}
+                        strokeWidth="3"
                         opacity="0.4"
                         animate={{ x1: [148, 152, 148], x2: [148, 152, 148] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                       />
-                      <motion.line 
-                        x1="50" 
-                        y1="150" 
-                        x2="90" 
-                        y2="150" 
-                        stroke={section.color} 
-                        strokeWidth="3" 
+                      <motion.line
+                        x1="50"
+                        y1="150"
+                        x2="90"
+                        y2="150"
+                        stroke={section.color}
+                        strokeWidth="3"
                         opacity="0.4"
                         animate={{ x1: [48, 52, 48], x2: [88, 92, 88] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
                       />
-                      <motion.line 
-                        x1="250" 
-                        y1="150" 
-                        x2="210" 
-                        y2="150" 
-                        stroke={section.color} 
-                        strokeWidth="3" 
+                      <motion.line
+                        x1="250"
+                        y1="150"
+                        x2="210"
+                        y2="150"
+                        stroke={section.color}
+                        strokeWidth="3"
                         opacity="0.4"
                         animate={{ x1: [248, 252, 248], x2: [208, 212, 208] }}
                         transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
@@ -241,40 +241,40 @@ export default function Home() {
 
               return (
                 <BlurFade key={index} delay={0.3 + index * 0.1} inView>
-                  <div className="group relative">
+                  <div className="group relative cursor-pointer">
                     {/* SVG Illustration */}
                     <svg
                       viewBox="0 0 200 200"
-                      className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-auto transition-transform duration-300 group-hover:scale-105 cursor-pointer"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       {/* Background blob - centered circle */}
                       <circle cx="100" cy="100" r="85" fill={track.lightColor} />
 
                       {/* Decorative circles with motion */}
-                      <motion.circle 
-                        cx="50" 
-                        cy="60" 
-                        r="10" 
-                        fill={track.color} 
+                      <motion.circle
+                        cx="50"
+                        cy="60"
+                        r="10"
+                        fill={track.color}
                         opacity="0.3"
                         animate={{ x: [-2, 2, -2] }}
                         transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
                       />
-                      <motion.circle 
-                        cx="150" 
-                        cy="70" 
-                        r="12" 
-                        fill={track.color} 
+                      <motion.circle
+                        cx="150"
+                        cy="70"
+                        r="12"
+                        fill={track.color}
                         opacity="0.2"
                         animate={{ x: [2, -2, 2] }}
                         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
                       />
-                      <motion.circle 
-                        cx="60" 
-                        cy="150" 
-                        r="8" 
-                        fill={track.color} 
+                      <motion.circle
+                        cx="60"
+                        cy="150"
+                        r="8"
+                        fill={track.color}
                         opacity="0.25"
                         animate={{ x: [-1.5, 1.5, -1.5] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.25 }}
@@ -305,35 +305,35 @@ export default function Home() {
                       )}
 
                       {/* Decorative lines with motion */}
-                      <motion.line 
-                        x1="100" 
-                        y1="15" 
-                        x2="100" 
-                        y2="30" 
-                        stroke={track.color} 
-                        strokeWidth="2" 
+                      <motion.line
+                        x1="100"
+                        y1="15"
+                        x2="100"
+                        y2="30"
+                        stroke={track.color}
+                        strokeWidth="2"
                         opacity="0.4"
                         animate={{ x1: [98, 102, 98], x2: [98, 102, 98] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.15 }}
                       />
-                      <motion.line 
-                        x1="15" 
-                        y1="100" 
-                        x2="30" 
-                        y2="100" 
-                        stroke={track.color} 
-                        strokeWidth="2" 
+                      <motion.line
+                        x1="15"
+                        y1="100"
+                        x2="30"
+                        y2="100"
+                        stroke={track.color}
+                        strokeWidth="2"
                         opacity="0.4"
                         animate={{ x1: [13, 17, 13], x2: [28, 32, 28] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
                       />
-                      <motion.line 
-                        x1="185" 
-                        y1="100" 
-                        x2="170" 
-                        y2="100" 
-                        stroke={track.color} 
-                        strokeWidth="2" 
+                      <motion.line
+                        x1="185"
+                        y1="100"
+                        x2="170"
+                        y2="100"
+                        stroke={track.color}
+                        strokeWidth="2"
                         opacity="0.4"
                         animate={{ x1: [183, 187, 183], x2: [168, 172, 168] }}
                         transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: index * 0.25 }}
@@ -426,10 +426,6 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* Fun fact */}
-              <p className="mt-6 text-sm text-gray-600 font-medium">
-                💡 כבר למעלה מ-100 תלמידים התחילו את המסע שלהם איתנו
-              </p>
             </div>
           </div>
         </BlurFade>

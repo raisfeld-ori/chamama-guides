@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import { motion } from "framer-motion";
 
 interface YearSelectorProps {
   category: string;
@@ -11,71 +12,232 @@ interface YearSelectorProps {
 
 const years = [
   {
-    id: "year-1",
-    title: "שנה 1",
-    description: "יסודות תכנות ומושגי בסיס",
-    icon: "1️⃣",
-  },
-  {
     id: "year-2",
     title: "שנה 2",
-    description: "מיומנויות פיתוח בינוניות",
-    icon: "2️⃣",
+    color: "#14b8a6",
+    lightColor: "#ccfbf1",
   },
   {
     id: "year-3",
     title: "שנה 3",
-    description: "מושגי תכנות מתקדמים",
-    icon: "3️⃣",
+    color: "#06b6d4",
+    lightColor: "#cffafe",
   },
   {
     id: "year-4",
     title: "שנה 4",
-    description: "שיטות פיתוח מקצועיות",
-    icon: "4️⃣",
+    color: "#84cc16",
+    lightColor: "#ecfccb",
   },
 ];
 
 const categoryTitles: Record<string, string> = {
-  frontend: "פיתוח ממשק משתמש",
-  backend: "פיתוח צד שרת",
-  devops: "DevOps",
-  "data-science": "מדעי הנתונים",
+  frontend: "Frontend - צד משתמש",
+  backend: "Backend - צד שרת",
+  devops: "DevOps - ניהול תשתיות",
+  "data-science": "Data Science - מדעי הנתונים",
 };
 
 export function YearSelector({ category, basePath }: YearSelectorProps) {
   return (
-    <section className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      <BlurFade delay={0.1}>
-        <h1 className="mb-4 text-center text-4xl font-bold sm:text-5xl">
-          {categoryTitles[category] || category}
-        </h1>
-        <p className="mx-auto mb-12 max-w-2xl text-center text-lg text-muted-foreground">
-          בחר את שנת הלימוד שלך
-        </p>
-      </BlurFade>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {years.map((year, index) => (
-          <BlurFade key={year.id} delay={0.2 + index * 0.1} inView>
-            <Link href={`/${basePath}/${category}/${year.id}`}>
-              <div className="group h-full rounded-lg border bg-card p-6 transition-all hover:shadow-xl hover:scale-105">
-                <div className="mb-4 text-5xl">{year.icon}</div>
-                <h3 className="mb-2 text-xl font-semibold">{year.title}</h3>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  {year.description}
-                </p>
-                <Button
-                  variant="ghost"
-                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground"
-                >
-                  בחר שנה ←
-                </Button>
-              </div>
-            </Link>
-          </BlurFade>
-        ))}
+    <div className="relative h-screen flex flex-col bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-hidden">
+      {/* Animated background blur circles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 right-20 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"
+          animate={{
+            x: [0, 30, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-40 left-20 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+        <motion.div
+          className="absolute bottom-40 right-40 w-72 h-72 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-30"
+          animate={{
+            x: [0, 40, 0],
+            y: [0, -40, 0],
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
       </div>
-    </section>
+
+      <section className="relative flex-1 flex flex-col container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        {/* Header with title */}
+        <BlurFade delay={0.05}>
+          <div className="flex flex-col items-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-black text-emerald-700 mb-3">
+              {categoryTitles[category] || category}
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full"></div>
+          </div>
+        </BlurFade>
+
+        <BlurFade delay={0.1}>
+          <h1 className="mb-3 text-center text-4xl font-black sm:text-5xl md:text-6xl gradient-green-shimmer animate-shimmer">
+            בחרו את השנה שלכם
+          </h1>
+          <p className="mx-auto mb-8 max-w-2xl text-center text-base text-gray-600 font-medium">
+            כל שנה מכילה תכנים מותאמים לרמת הידע שלכם 🎯
+          </p>
+        </BlurFade>
+
+        <div className="flex-1 grid gap-6 grid-cols-3 content-center max-w-4xl mx-auto">
+          {years.map((year, index) => (
+            <BlurFade key={year.id} delay={0.2 + index * 0.1} inView>
+              <Link href={`/${basePath}/${category}/${year.id}`} className="group cursor-pointer transition-all hover:scale-105">
+                {/* SVG with text overlay */}
+                <svg
+                  viewBox="0 0 200 200"
+                  className="w-full h-auto"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Background */}
+                  <rect width="200" height="200" fill={year.lightColor} rx="20" />
+
+                  {/* Decorative circles */}
+                  <motion.circle
+                    cx="50"
+                    cy="50"
+                    r="8"
+                    fill={year.color}
+                    opacity="0.3"
+                    animate={{ x: [-2, 2, -2] }}
+                    transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+                  />
+                  <motion.circle
+                    cx="150"
+                    cy="60"
+                    r="10"
+                    fill={year.color}
+                    opacity="0.2"
+                    animate={{ x: [2, -2, 2] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
+                  />
+
+                  {/* Year number circle */}
+                  <circle cx="100" cy="100" r="40" fill={year.color} />
+                  <foreignObject x="70" y="70" width="60" height="60">
+                    <div className="flex items-center justify-center w-full h-full text-white text-3xl font-black">
+                      {index + 1}
+                    </div>
+                  </foreignObject>
+
+                  {/* Decorative lines */}
+                  <motion.line
+                    x1="30"
+                    y1="100"
+                    x2="60"
+                    y2="100"
+                    stroke={year.color}
+                    strokeWidth="2"
+                    opacity="0.4"
+                    animate={{ x1: [28, 32, 28], x2: [58, 62, 58] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <motion.line
+                    x1="140"
+                    y1="100"
+                    x2="170"
+                    y2="100"
+                    stroke={year.color}
+                    strokeWidth="2"
+                    opacity="0.4"
+                    animate={{ x1: [138, 142, 138], x2: [168, 172, 168] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  />
+
+                  {/* Text overlay */}
+                  <foreignObject x="30" y="150" width="140" height="40">
+                    <div className="flex items-center justify-center h-full">
+                      <h3
+                        className="text-xl font-black"
+                        style={{
+                          background: `linear-gradient(90deg, ${year.color} 0%, ${year.color}dd 25%, ${year.color}99 50%, ${year.color}dd 75%, ${year.color} 100%)`,
+                          backgroundSize: '200% auto',
+                          WebkitBackgroundClip: 'text',
+                          backgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                        }}
+                      >
+                        {year.title}
+                      </h3>
+                    </div>
+                  </foreignObject>
+                </svg>
+              </Link>
+            </BlurFade>
+          ))}
+        </div>
+      </section>
+
+      {/* Bottom decorative SVG - Full width, no padding */}
+      <BlurFade delay={0.6} inView>
+        <div className="w-full">
+          <svg viewBox="0 0 1200 150" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            {/* Background wave - full width */}
+            <path
+              d="M0,75 Q300,25 600,75 T1200,75 L1200,150 L0,150 Z"
+              fill="#d1fae5"
+              opacity="0.6"
+            />
+
+            {/* Decorative lines */}
+            <motion.line
+              x1="300"
+              y1="90"
+              x2="360"
+              y2="90"
+              stroke="#10b981"
+              strokeWidth="3"
+              opacity="0.5"
+              strokeLinecap="round"
+              animate={{ x1: [298, 302, 298], x2: [358, 362, 358] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.line
+              x1="700"
+              y1="95"
+              x2="760"
+              y2="95"
+              stroke="#14b8a6"
+              strokeWidth="3"
+              opacity="0.5"
+              strokeLinecap="round"
+              animate={{ x1: [698, 702, 698], x2: [758, 762, 758] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            />
+
+            {/* Text */}
+            <foreignObject x="450" y="105" width="300" height="40">
+              <div className="flex items-center justify-center h-full">
+
+              </div>
+            </foreignObject>
+          </svg>
+        </div>
+      </BlurFade>
+    </div>
   );
 }

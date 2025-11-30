@@ -50,7 +50,7 @@ export function PlayfulButton() {
                     }`}
             >
                 {isClickable ? (
-                    <Link href="/learning/frontend">
+                    <Link href="/learning">
                         יאללה, בואו נתחיל!
                         <span className="inline-block mr-2 transition-transform group-hover:translate-x-1">
                             ←

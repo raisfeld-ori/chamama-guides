@@ -187,9 +187,9 @@ export function Header() {
               <Button
                 asChild
                 size="default"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-sm transition-all hover:shadow-md"
+                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
-                <Link href="/learning/frontend">
+                <Link href="/learning">
                   <Sparkles className="ml-1 h-4 w-4" />
                   התחל ללמוד
                 </Link>
@@ -263,41 +263,41 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent
-                side="left"
-                className="w-[320px] sm:w-[400px] overflow-y-auto bg-gradient-to-b from-emerald-50 to-white"
+                side="right"
+                className="w-[85vw] sm:w-[400px] overflow-y-auto bg-gradient-to-b from-emerald-50 to-white px-6"
+                dir="rtl"
               >
                 <SheetHeader className="border-b border-emerald-200 pb-4">
-                  <SheetTitle className="text-right text-2xl gradient-green-shimmer animate-shimmer">תפריט ניווט</SheetTitle>
+                  <SheetTitle className="text-right text-2xl gradient-green-shimmer animate-shimmer font-black">תפריט ניווט</SheetTitle>
                 </SheetHeader>
-                <nav className="mt-8 flex flex-col gap-6">
+                <nav className="mt-6 flex flex-col gap-4">
                   {navigationItems.map((item) => (
-                    <div key={item.title} className="space-y-3">
+                    <div key={item.title} className="space-y-2">
                       {item.items ? (
                         <>
-                          <div className="flex items-center gap-2 text-lg font-bold text-emerald-700 justify-end">
-                            <span>{item.title}</span>
-                            <ChevronDown className="h-4 w-4" />
+                          <div className="text-base font-black text-emerald-700 px-4 py-2 bg-emerald-100 rounded-lg text-right">
+                            {item.title}
                           </div>
-                          <div className="ml-6 space-y-2 border-l-2 border-emerald-300 pl-4">
+                          <div className="mr-2 space-y-1 border-r-2 border-emerald-300 pr-3">
                             {item.items.map((subItem) => (
                               <Link
                                 key={subItem.title}
                                 href={subItem.href || "#"}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="group flex items-start gap-3 rounded-xl p-3 transition-all hover:bg-emerald-100"
+                                className="group flex items-center gap-3 rounded-lg p-3 transition-all hover:bg-white hover:shadow-sm border border-transparent hover:border-emerald-200"
                               >
                                 <div className="flex-1 text-right">
-                                  <div className="font-bold text-gray-800 group-hover:text-emerald-700">
+                                  <div className="font-bold text-gray-800 group-hover:text-emerald-700 text-sm">
                                     {subItem.title}
                                   </div>
                                   {subItem.description && (
-                                    <div className="text-sm text-gray-600">
+                                    <div className="text-xs text-gray-500 mt-0.5">
                                       {subItem.description}
                                     </div>
                                   )}
                                 </div>
                                 {subItem.icon && (
-                                  <span className="text-2xl">{subItem.icon}</span>
+                                  <span className="text-2xl flex-shrink-0">{subItem.icon}</span>
                                 )}
                               </Link>
                             ))}
@@ -307,26 +307,22 @@ export function Header() {
                         <Link
                           href={item.href || "#"}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center justify-end gap-2 rounded-xl p-3 text-lg font-bold transition-all hover:bg-emerald-100 hover:text-emerald-700"
+                          className="flex items-center justify-center rounded-lg px-4 py-3 text-base font-black transition-all bg-white hover:bg-emerald-50 shadow-sm hover:shadow-md border-2 border-emerald-200 hover:border-emerald-400 text-emerald-700 hover:text-emerald-800"
                         >
                           {item.title}
                         </Link>
                       )}
                     </div>
                   ))}
-                  <div className="border-t border-emerald-200 pt-6">
-                    <Button
-                      className="w-full shadow-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold"
-                      size="lg"
-                      asChild
+                  <div className="border-t border-emerald-200 pt-4 mt-2 sticky bottom-0 bg-gradient-to-b from-emerald-50 to-white pb-4">
+                    <Link
+                      href="/learning"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl shadow-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-base transition-all hover:shadow-xl"
                     >
-                      <Link
-                        href="/learning/frontend"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        התחל ללמוד
-                      </Link>
-                    </Button>
+                      התחל ללמוד
+                      <Sparkles className="h-5 w-5" />
+                    </Link>
                   </div>
                 </nav>
               </SheetContent>

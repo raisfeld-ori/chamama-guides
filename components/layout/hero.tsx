@@ -67,7 +67,7 @@ export function Hero() {
               className="group w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-lg px-8 py-6 shadow-xl shadow-emerald-200 hover:shadow-2xl hover:shadow-emerald-300 transition-all hover:scale-105"
               asChild
             >
-              <Link href="/learning/frontend">
+              <Link href="/learning">
                 <Sparkles className="ml-2 h-5 w-5" />
                 התחל ללמוד עכשיו
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
