@@ -29,7 +29,7 @@ export const projects = [
   },
   {
     id: "year-1-cdn",
-    title: "שרת CDN",
+    title: "CDN server",
     description: "CDN servers are very difficult to make however those that do make it go very far ",
     longDescription: "Building for many countries at the same time, it's important that all countries can access it simultaneously. A CDN (Content Delivery Network) is needed for this. You are required to build a CDN that allows you to start servers on multiple computers and connect them together.",
     skills: ["Python", "Networking", "SQL", "PostgresQL"],

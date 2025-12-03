@@ -79,7 +79,7 @@ export function Hero() {
               className="w-full sm:w-auto border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-black text-lg px-8 py-6 hover:scale-105 transition-all"
               asChild
             >
-              <Link href="/projects/frontend">
+              <Link href="/projects">
                 <Rocket className="mr-2 h-5 w-5" />
                 צפה בפרויקטים
               </Link>
