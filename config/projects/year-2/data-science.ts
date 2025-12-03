@@ -1,12 +1,42 @@
-export const projects = [ 
-    {
-        id: "year-2-datascience-model-creation",
-        title: "Creating an ML model",
-        description: "Create a classified machine learning model",
-        longDescription: "Decide on some images you would like to train the model on depending on the ml model you want to build, e.g if you want to build a machine learning model for identifying dog types you would choose a dataset with dog types start classifying and start training the model",
-        difficulty: "intermediate" as const,
-        estimatedTime: "Time highly depends on the amount of data you train on and how precise you want the model to be (3-10 hours)",
-        skills: ["Python, Tensorflow, Numpy, Matplotlib, Data Collecting, Training, Testing "],
-        featured: true,
-    }
-]
+export const projects = [
+  {
+    id: "year-2-datascience-deep-learning",
+    title: "מודל Deep Learning מתקדם",
+    description: "בנה מודל CNN לזיהוי תמונות עם transfer learning",
+    longDescription: "פיתוח מודל deep learning מתקדם לסיווג תמונות באמצעות Convolutional Neural Networks, transfer learning, data augmentation ואופטימיזציה של hyperparameters.",
+    difficulty: "Advanced" as const,
+    estimatedTime: "20-25 שעות",
+    skills: ["TensorFlow/PyTorch", "CNNs", "Transfer Learning", "Data Augmentation", "Model Optimization"],
+    featured: true,
+  },
+  {
+    id: "year-2-datascience-nlp-sentiment",
+    title: "מערכת ניתוח רגשות",
+    description: "פתח מערכת NLP לניתוח רגשות בטקסטים",
+    longDescription: "בניית מערכת מתקדמת לניתוח רגשות בטקסטים עם preprocessing, feature engineering, מודלים מרובים והערכת ביצועים.",
+    difficulty: "Intermediate" as const,
+    estimatedTime: "15-18 שעות",
+    skills: ["NLP", "NLTK/spaCy", "Sentiment Analysis", "Text Preprocessing", "Model Evaluation"],
+    featured: false,
+  },
+  {
+    id: "year-2-datascience-time-series",
+    title: "חיזוי מחירי מניות",
+    description: "בנה מודל לחיזוי time series עם LSTM",
+    longDescription: "פיתוח מודל חיזוי מתקדם למחירי מניות באמצעות LSTM networks, feature engineering של נתוני זמן, ואופטימיזציה של אסטרטגיות trading.",
+    difficulty: "Advanced" as const,
+    estimatedTime: "18-22 שעות",
+    skills: ["LSTM", "Time Series Analysis", "Financial Data", "Feature Engineering", "Backtesting"],
+    featured: true,
+  },
+  {
+    id: "year-2-datascience-recommendation",
+    title: "מערכת המלצות מתקדמת",
+    description: "צור מערכת המלצות עם collaborative ו-content filtering",
+    longDescription: "בניית מערכת המלצות מתקדמת המשלבת collaborative filtering, content-based filtering, matrix factorization ו-deep learning approaches.",
+    difficulty: "Advanced" as const,
+    estimatedTime: "22-28 שעות",
+    skills: ["Recommendation Systems", "Matrix Factorization", "Collaborative Filtering", "Deep Learning", "A/B Testing"],
+    featured: false,
+  },
+];

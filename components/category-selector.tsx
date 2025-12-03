@@ -12,20 +12,20 @@ interface YearSelectorProps {
 
 const years = [
   {
-    id: "year-2",
-    title: "שנה 2",
+    id: "year-1",
+    title: "שנה 1",
     color: "#14b8a6",
     lightColor: "#ccfbf1",
   },
   {
-    id: "year-3",
-    title: "שנה 3",
+    id: "year-2",
+    title: "שנה 2",
     color: "#06b6d4",
     lightColor: "#cffafe",
   },
   {
-    id: "year-4",
-    title: "שנה 4",
+    id: "year-3",
+    title: "שנה 3",
     color: "#84cc16",
     lightColor: "#ecfccb",
   },
