@@ -26,8 +26,8 @@ export default function ProjectsPage() {
             color: "#14b8a6"
         },
         {
-            id: "devops",
-            title: "DevOps",
+            id: "gamedev",
+            title: "GameDev",
             description: "ניהול שרתים",
             icon: Cloud,
             color: "#06b6d4"

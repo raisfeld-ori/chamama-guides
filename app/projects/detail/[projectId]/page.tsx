@@ -4,13 +4,13 @@ import { notFound } from "next/navigation";
 // Import all project configs
 import { projects as frontendYear1 } from "@/config/projects/year-1/frontend";
 import { projects as backendYear1 } from "@/config/projects/year-1/backend";
-import { projects as devopsYear1 } from "@/config/projects/year-1/devops";
+import { projects as gamedevYear1 } from "@/config/projects/year-1/gamedev";
 import { projects as dataYear1 } from "@/config/projects/year-1/data-science";
 
 const allProjects = [
   ...frontendYear1,
   ...backendYear1,
-  ...devopsYear1,
+  ...gamedevYear1,
   ...dataYear1,
 ];
 

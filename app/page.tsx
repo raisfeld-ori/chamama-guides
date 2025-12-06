@@ -57,10 +57,10 @@ export default function Home() {
       lightColor: "#dcfce7",
     },
     {
-      title: "ניהול תשתיות",
-      description: "פרוס ונהל תשתיות",
-      technologies: ["Docker", "CI/CD", "ענן"],
-      href: "/learning/devops",
+      title: "פיתוח משחקים",
+      description: "תפתחו משחקים כיפיים ומשמעותיים",
+      technologies: ["Python", "Godot", "#C"],
+      href: "/learning/gamedev",
       color: "#10b981",
       lightColor: "#d1fae5",
     },
@@ -101,8 +101,10 @@ export default function Home() {
                       className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                       xmlns="http://www.w3.org/2000/svg"
                     >
+                      {/* Mario SVG replacing the cloud */}
                       <path
-                        d="M150,50 Q250,80 250,150 Q250,220 150,250 Q50,220 50,150 Q50,80 150,50 Z"
+                        d="M150 50c-20 0-35 15-35 35v40c0 20 15 35 35 35s35-15 35-35v-40c0-20-15-35-35-35zm-20 30h40v40h-40v-40z
+                           M135 120c0 10 10 20 20 20s20-10 20-20h-40z"
                         fill={section.lightColor}
                         className="transition-all duration-300"
                       />

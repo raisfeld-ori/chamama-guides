@@ -239,7 +239,7 @@ export default async function LearningContentPage({
 }
 
 export function generateStaticParams() {
-  const categories = ["frontend", "backend", "devops", "data-science"];
+  const categories = ["frontend", "backend", "gamedev", "data-science"];
   const years = ["year-1", "year-2", "year-3", "year-4"];
 
   return categories.flatMap((category) =>

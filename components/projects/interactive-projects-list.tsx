@@ -10,7 +10,7 @@ import { useState } from "react";
 const categoryTitles: Record<string, string> = {
     frontend: "פיתוח ממשק משתמש",
     backend: "פיתוח צד שרת",
-    devops: "DevOps",
+    gamedev: "פיתוח משחקים ",
     "data-science": "מדעי הנתונים",
 };
 

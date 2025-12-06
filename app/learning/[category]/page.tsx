@@ -13,7 +13,7 @@ export function generateStaticParams() {
   return [
     { category: "frontend" },
     { category: "backend" },
-    { category: "devops" },
+    { category: "gamedev" },
     { category: "data-science" },
   ];
 }

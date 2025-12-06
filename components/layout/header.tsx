@@ -39,10 +39,10 @@ const navigationItems: NavItem[] = [
         icon: "⚙️",
       },
       {
-        title: "ניהול שרתים",
-        href: "/learning/devops",
-        description: "CI/CD, Docker, Cloud",
-        icon: "🚀",
+        title: "פיתוח משחקים",
+        href: "/learning/gamedev",
+        description: "C#, Godot, Python",
+        icon: "🎮",
       },
       {
         title: "מדעי הנתונים",
@@ -68,10 +68,10 @@ const navigationItems: NavItem[] = [
         icon: "🔧",
       },
       {
-        title: "ניהול שרתים",
-        href: "/projects/devops",
-        description: "פרויקטי תשתית",
-        icon: "☁️",
+        title: "פיתוח משחקים",
+        href: "/projects/gamedev",
+        description: "פרויקטי פיתוח משחקים",
+        icon: "🧩",
       },
       {
         title: "מדעי הנתונים",
