@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, Sparkles, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { useTask } from "@/contexts/TaskContext";
 
 interface NavItem {
   title: string;
@@ -150,6 +151,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [activeMenu, setActiveMenu] = React.useState<string | null>(null);
+  const { completedTasks, getRank } = useTask();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -184,6 +186,19 @@ export function Header() {
           <div className="flex h-16 items-center justify-between">
             {/* CTA Button - Moved to right side for RTL */}
             <div className="hidden items-center gap-3 lg:flex order-first">
+              {completedTasks.length > 0 && (
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="border-2 border-emerald-500 text-emerald-700 hover:bg-emerald-50 font-bold shadow-sm hover:shadow-md transition-all hover:scale-105"
+                >
+                  <Link href="/finished-tasks">
+                    <Trophy className="ml-1 h-4 w-4" />
+                    {getRank()} • {completedTasks.length}
+                  </Link>
+                </Button>
+              )}
               <Button
                 asChild
                 size="default"

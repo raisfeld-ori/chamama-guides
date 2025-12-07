@@ -1,8 +1,17 @@
+"use client"
+
 import { BookOpen, Code, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useLoading } from "@/contexts/LoadingContext";
+import { Loading } from "@/components/ui/loading";
 
 export default function AboutPage() {
+  const { isLoading } = useLoading();
+
+  if (isLoading) {
+    return <Loading variant="default" text="טוען מידע על המערכת..." />;
+  }
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50/30 to-white">
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">

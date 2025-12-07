@@ -6,12 +6,14 @@ export const config = {
       title: "בניית השרת הראשון",
       blocks: [
         {
+          id: "python-intro",
           type: "video" as const,
           title:"תכנות בשפת פייתון",
           youtubeId: "rfscVS0vtbw",
           description: "הבנת תכנות צד שרת",
         },
         {
+          id: "python-practice",
           type: "text" as const,
           title: "להתנסות קצת עם פייתון",
           content: "סיימתם את הסרטון? תתנסו קצת עם פייתון, תבנו שטויות",
@@ -22,6 +24,7 @@ export const config = {
       title: "איך להכין שרתים",
       blocks: [
         {
+          id: "flask-tutorial",
           type: "video" as const,
           title: "ללמוד Flask",
           youtubeId: "Z1RJmh_OqeA",
@@ -52,12 +55,14 @@ export const config = {
       title: "קידום ידע",
       blocks: [
         {
+          id: "oop-tutorial",
           type: "video" as const,
           title: "פיתוח מובנה חפצים",
           youtubeId: "JeznW_7DlB0",
           description: "כלי מאוד חשוב ושימושי לכל אחד לדעת"
         },
         {
+          id: "algorithms-tutorial",
           type: "video" as const,
           title: "אלגוריתמים ומבני נתונים",
           youtubeId: "pkYVOmU3MgA",
@@ -69,6 +74,7 @@ export const config = {
       title: "הוצאת שרת לרשת",
       blocks: [
         {
+          id: "deployment-tutorial",
           type: "video" as const,
           title: "השרת שלך, עכשיו אונליין",
           youtubeId: "Bx_jHawKn5A",
@@ -80,8 +86,10 @@ export const config = {
       title: "אותו פרויקט- עם יותר ידע",
       blocks: [
         {
+          id: "rebuild-project",
           type: "text" as const,
-          title: "אתם עכשיו בונים מחדש את הפרויקט הראשון שלכם, אבל עם יותר ידע ויכולות"
+          title: "אתם עכשיו בונים מחדש את הפרויקט הראשון שלכם, אבל עם יותר ידע ויכולות",
+          content: "קחו את הפרויקט הראשון שלכם ובנו אותו מחדש עם כל הידע החדש שרכשתם. הוסיפו פיצ'רים חדשים, שפרו את הקוד, והפכו אותו למשהו שאתם באמת גאים בו."
         },
         {
           type: "project" as const,
@@ -103,12 +111,14 @@ export const config = {
       title: "שרתים מתקדמים וSQL",
       blocks: [
         {
+          id: "networking-python",
           type: "video" as const,
           title: "רשתות עם פייתון",
           youtubeId: "FGdiSJakIS4",
           description: "ללמוד איך הרשת עובדת עם פייתון"
         },
         {
+          id: "postgresql-tutorial",
           type: "video" as const,
           title: "postgresQL",
           youtubeId: "qw--VYLpxG4",

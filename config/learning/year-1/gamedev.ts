@@ -6,12 +6,14 @@ export const config = {
       title: "Learn Python",
       blocks: [
         {
+          id: "python-full-course",
           type: "video" as const,
           title: "Python in 4 Hours - Full Course for Beginners",
           youtubeId: "rfscVS0vtbw",
           description: "Complete Python course covering all the basics in 4 hours",
         },
         {
+          id: "python-fundamentals-guide",
           type: "text" as const,
           title: "Python Fundamentals",
           content:
@@ -23,12 +25,14 @@ export const config = {
       title: "Game Development Fundamentals",
       blocks: [
         {
+          id: "pygame-tutorial",
           type: "video" as const,
           title: "Pygame Tutorial for Beginners",
           youtubeId: "FfWpgLFMI7w",
           description: "Full beginner Pygame course covering graphics, movement, collisions, and more",
         },
         {
+          id: "gamedev-basics-guide",
           type: "text" as const,
           title: "What You'll Learn",
           content:

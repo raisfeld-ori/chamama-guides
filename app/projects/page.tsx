@@ -5,10 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Code, Server, Cloud, Database, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLoading } from "@/contexts/LoadingContext";
+import { Loading } from "@/components/ui/loading";
 
 export default function ProjectsPage() {
+    const { isLoading } = useLoading();
     const [step, setStep] = useState<1 | 2>(1);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+    if (isLoading) {
+        return <Loading variant="default" text="טוען פרויקטים..." />;
+    }
 
     const categories = [
         {

@@ -6,12 +6,14 @@ export const config = {
       title: "מבוא למדעי הנתונים",
       blocks: [
         {
+          id: "data-science-intro",
           type: "video" as const,
           title: "מה זה מדעי הנתונים?",
           youtubeId: "ua-CiDNNj30",
           description: "הבנת מדעי הנתונים והיישומים שלהם",
         },
         {
+          id: "data-science-basics",
           type: "text" as const,
           title: "יסודות מדעי הנתונים",
           content:
@@ -23,12 +25,14 @@ export const config = {
       title: "יסודות Python",
       blocks: [
         {
+          id: "python-beginners",
           type: "video" as const,
           title: "Python למתחילים",
           youtubeId: "_uQrJ0TkZlc",
           description: "למד את יסודות תכנות Python",
         },
         {
+          id: "python-official-guide",
           type: "link" as const,
           title: "מדריך רשמי של Python",
           url: "https://docs.python.org/3/tutorial/",

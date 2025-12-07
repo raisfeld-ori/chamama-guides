@@ -3,9 +3,10 @@
 import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock, Target, Sparkles, CheckCircle2, Code2, Lightbulb, Rocket, Trophy } from "lucide-react";
+import { ArrowLeft, Clock, Target, Sparkles, CheckCircle2, Code2, Lightbulb, Rocket, Trophy, ExternalLink, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTask } from "@/contexts/TaskContext";
 
 const difficultyConfig: Record<string, { color: string; lightColor: string; label: string }> = {
     "Beginner": { color: "#10b981", lightColor: "#d1fae5", label: "מתחילים" },
@@ -14,9 +15,23 @@ const difficultyConfig: Record<string, { color: string; lightColor: string; labe
     "Advanced": { color: "#84cc16", lightColor: "#ecfccb", label: "מתקדם" },
 };
 
+// Function to extract YouTube video ID from URL
+const getYouTubeVideoId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+};
+
+// Function to detect if URL contains video content
+const isVideoUrl = (url: string) => {
+    return url.includes('youtube.com') || url.includes('youtu.be') || url.includes('vimeo.com');
+};
+
 export function ProjectDetailClient({ project, category }: { project: any; category: string }) {
-    const [activeTab, setActiveTab] = useState<"overview" | "skills" | "details">("overview");
+    const [activeTab, setActiveTab] = useState<"overview" | "skills" | "details" | "embed">("overview");
+    const { markTaskComplete, isTaskComplete } = useTask();
     const difficulty = difficultyConfig[project.difficulty] || difficultyConfig["Beginner"];
+    const isCompleted = isTaskComplete(project.id);
 
     // Convert hours to Hebrew
     const convertHoursToHebrew = (text: string) => {
@@ -28,6 +43,20 @@ export function ProjectDetailClient({ project, category }: { project: any; categ
     };
 
     const estimatedTimeHebrew = convertHoursToHebrew(project.estimatedTime || '');
+
+    const handleMarkComplete = () => {
+        markTaskComplete({
+            id: project.id,
+            title: project.title,
+            category: category,
+            type: 'project',
+            completedAt: new Date(),
+            timeSpent: estimatedTimeHebrew
+        });
+    };
+
+    // Check if project has embedded content (for now, we'll add this to project configs later)
+    const hasEmbeddedContent = project.videoUrl || project.demoUrl || project.tutorialUrl;
 
     return (
         <div className="min-h-screen bg-white">
@@ -109,6 +138,7 @@ export function ProjectDetailClient({ project, category }: { project: any; categ
                             { id: "overview", label: "סקירה", icon: Lightbulb },
                             { id: "skills", label: "מיומנויות", icon: Sparkles },
                             { id: "details", label: "פרטים", icon: Code2 },
+                            ...(hasEmbeddedContent ? [{ id: "embed", label: "תוכן", icon: Play }] : []),
                         ].map((tab) => {
                             const Icon = tab.icon;
                             return (
@@ -199,6 +229,87 @@ export function ProjectDetailClient({ project, category }: { project: any; categ
                             </BlurFade>
                         )}
 
+                        {/* Embed Tab */}
+                        {activeTab === "embed" && hasEmbeddedContent && (
+                            <BlurFade delay={0.25} inView>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="rounded-2xl border-2 border-gray-200 bg-white p-4 md:p-6 lg:p-8 shadow-lg"
+                                >
+                                    <div className="flex items-center gap-3 mb-4 md:mb-6">
+                                        <div
+                                            className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shadow-md"
+                                            style={{ backgroundColor: difficulty.color }}
+                                        >
+                                            <Play className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                                        </div>
+                                        <h2 className="text-xl md:text-2xl font-black text-gray-900">תוכן עזר</h2>
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        {/* Video Embed */}
+                                        {project.videoUrl && (
+                                            <div>
+                                                <h3 className="text-lg font-black text-gray-800 mb-3">סרטון הדרכה</h3>
+                                                {isVideoUrl(project.videoUrl) && getYouTubeVideoId(project.videoUrl) ? (
+                                                    <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
+                                                        <iframe
+                                                            src={`https://www.youtube.com/embed/${getYouTubeVideoId(project.videoUrl)}`}
+                                                            title="Video tutorial"
+                                                            frameBorder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen
+                                                            className="w-full h-full"
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                                                        <Button asChild className="w-full bg-red-500 hover:bg-red-600 text-white font-black">
+                                                            <a href={project.videoUrl} target="_blank" rel="noopener noreferrer">
+                                                                <ExternalLink className="w-4 h-4 ml-2" />
+                                                                צפה בסרטון
+                                                            </a>
+                                                        </Button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {/* Demo URL */}
+                                        {project.demoUrl && (
+                                            <div>
+                                                <h3 className="text-lg font-black text-gray-800 mb-3">דמו או דוגמה</h3>
+                                                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                                                    <Button asChild className="w-full bg-blue-500 hover:bg-blue-600 text-white font-black">
+                                                        <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                                                            <ExternalLink className="w-4 h-4 ml-2" />
+                                                            ראה דוגמה
+                                                        </a>
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Tutorial URL */}
+                                        {project.tutorialUrl && (
+                                            <div>
+                                                <h3 className="text-lg font-black text-gray-800 mb-3">מדריך נוסף</h3>
+                                                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                                                    <Button asChild className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black">
+                                                        <a href={project.tutorialUrl} target="_blank" rel="noopener noreferrer">
+                                                            <ExternalLink className="w-4 h-4 ml-2" />
+                                                            פתח מדריך
+                                                        </a>
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            </BlurFade>
+                        )}
+
                         {/* Details Tab */}
                         {activeTab === "details" && (
                             <BlurFade delay={0.25} inView>
@@ -264,17 +375,44 @@ export function ProjectDetailClient({ project, category }: { project: any; categ
                                     </div>
 
                                     <div className="space-y-3">
-                                        <Button
-                                            className="w-full font-black transition-all shadow-md hover:shadow-lg cursor-pointer text-sm md:text-base"
-                                            style={{
-                                                backgroundColor: difficulty.color,
-                                                color: 'white'
-                                            }}
-                                            size="lg"
-                                        >
-                                            <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 ml-2" />
-                                            התחל לבנות עכשיו!
-                                        </Button>
+                                        {!isCompleted ? (
+                                            <Button
+                                                onClick={handleMarkComplete}
+                                                className="w-full font-black transition-all shadow-md hover:shadow-lg cursor-pointer text-sm md:text-base hover:scale-105"
+                                                style={{
+                                                    backgroundColor: difficulty.color,
+                                                    color: 'white'
+                                                }}
+                                                size="lg"
+                                            >
+                                                <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 ml-2" />
+                                                סיימתי את המשימה!
+                                            </Button>
+                                        ) : (
+                                            <div className="space-y-3">
+                                                <div className="w-full bg-green-50 border-2 border-green-300 rounded-xl p-4 text-center">
+                                                    <div className="flex items-center justify-center gap-2 mb-2">
+                                                        <Trophy className="w-5 h-5 text-green-600" />
+                                                        <span className="font-black text-green-700">הושלם בהצלחה!</span>
+                                                    </div>
+                                                    <p className="text-sm text-green-600 font-medium">כל הכבוד! הוספת עוד משימה לרשימת ההישגים שלך 🎉</p>
+                                                </div>
+                                                <Button
+                                                    variant="outline"
+                                                    className="w-full font-black border-2 transition-all cursor-pointer text-sm md:text-base hover:scale-105"
+                                                    style={{
+                                                        borderColor: difficulty.color,
+                                                        color: difficulty.color
+                                                    }}
+                                                    asChild
+                                                >
+                                                    <Link href="/finished-tasks">
+                                                        <Trophy className="w-4 h-4 ml-2" />
+                                                        ראה את כל ההישגים
+                                                    </Link>
+                                                </Button>
+                                            </div>
+                                        )}
 
                                         <Button
                                             variant="outline"

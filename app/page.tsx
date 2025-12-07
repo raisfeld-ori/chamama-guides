@@ -7,8 +7,15 @@ import { Button } from "@/components/ui/button";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { BookOpen, Code, Briefcase } from "lucide-react";
 import { motion } from "framer-motion";
+import { useLoading } from "@/contexts/LoadingContext";
+import { Loading } from "@/components/ui/loading";
 
 export default function Home() {
+  const { isLoading } = useLoading();
+
+  if (isLoading) {
+    return <Loading variant="default" text="טוען את המערכת..." />;
+  }
   const sections = [
     {
       icon: BookOpen,

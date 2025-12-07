@@ -1,3 +1,7 @@
+"use client";
+
+import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import { VideoBlock } from "@/components/learning/video-block";
 import { TextBlock } from "@/components/learning/text-block";
 import { LinkBlock } from "@/components/learning/link-block";
@@ -6,6 +10,8 @@ import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, FileText, ExternalLink, Code } from "lucide-react";
+import { useLoading } from "@/contexts/LoadingContext";
+import { Loading } from "@/components/ui/loading";
 
 // Import config files
 const getLearningContent = async (category: string, year: string) => {
@@ -13,34 +19,48 @@ const getLearningContent = async (category: string, year: string) => {
     const config = await import(`@/config/learning/${year}/${category}.ts`);
     return config.config;
   } catch (error) {
-    // Fallback content if config doesn't exist
-    return {
-      title: `${category.charAt(0).toUpperCase() + category.slice(1)} - שנה ${year.split("-")[1]}`,
-      description: `מסלול למידה מלא לפיתוח ${category} בשנה ${year.split("-")[1]}`,
-      sections: [
-        {
-          title: "בקרוב",
-          blocks: [
-            {
-              type: "text" as const,
-              title: "תוכן בפיתוח",
-              content:
-                "תוכן זה נמצא כעת בפיתוח. אנא בדוק שוב בקרוב!\n\nבינתיים, חקור שנים וקטגוריות אחרות.",
-            },
-          ],
-        },
-      ],
-    };
+    console.error(`Failed to load config for ${category}/${year}:`, error);
+    return null;
   }
 };
 
-export default async function LearningContentPage({
-  params,
-}: {
-  params: Promise<{ category: string; year: string }>;
-}) {
-  const { category, year } = await params;
-  const content = await getLearningContent(category, year);
+export default function LearningYearPage() {
+  const { isLoading } = useLoading();
+  const params = useParams();
+  const category = params.category as string;
+  const year = params.year as string;
+  const [content, setContent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadContent = async () => {
+      const config = await getLearningContent(category, year);
+      setContent(config);
+      setLoading(false);
+    };
+    loadContent();
+  }, [category, year]);
+
+  if (isLoading) {
+    return <Loading variant="default" text="טוען תוכן למידה..." />;
+  }
+
+  if (loading) {
+    return <Loading variant="minimal" text="טוען..." />;
+  }
+
+  if (!content) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">תוכן לא נמצא</h1>
+          <Link href="/learning">
+            <Button>חזור לדף הלמידה</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // Position patterns: left, center, right
   const positions = ['left', 'center', 'right'];
@@ -160,30 +180,30 @@ export default async function LearningContentPage({
                       )}
 
                       {/* Type-specific content */}
-                      {block.type === 'video' && block.youtubeId && (
+                      {block.type === 'video' && block.id && (
                         <Button 
                           size="sm" 
                           className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-xs"
                           asChild
                         >
-                          <a href={`https://www.youtube.com/watch?v=${block.youtubeId}`} target="_blank" rel="noopener noreferrer">
+                          <Link href={`/learning/detail/${category}/${year}/${block.id}`}>
                             <Play className="w-3 h-3 ml-1" />
                             צפה בסרטון
-                          </a>
+                          </Link>
                         </Button>
                       )}
 
-                      {block.type === 'link' && block.url && (
+                      {block.type === 'link' && block.id && (
                         <Button 
                           size="sm" 
                           variant="outline"
                           className="w-full border-2 border-cyan-500 text-cyan-700 hover:bg-cyan-50 font-bold text-xs"
                           asChild
                         >
-                          <a href={block.url} target="_blank" rel="noopener noreferrer">
+                          <Link href={`/learning/detail/${category}/${year}/${block.id}`}>
                             <ExternalLink className="w-3 h-3 ml-1" />
                             פתח קישור
-                          </a>
+                          </Link>
                         </Button>
                       )}
 
@@ -235,17 +255,5 @@ export default async function LearningContentPage({
         </div>
       </div>
     </div>
-  );
-}
-
-export function generateStaticParams() {
-  const categories = ["frontend", "backend", "gamedev", "data-science"];
-  const years = ["year-1", "year-2", "year-3", "year-4"];
-
-  return categories.flatMap((category) =>
-    years.map((year) => ({
-      category,
-      year,
-    }))
   );
 }

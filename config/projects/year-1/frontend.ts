@@ -11,13 +11,16 @@ export const projects = [
   },
   {
     id: "year-1-frontend-landing",
-    title: "דף נחיתה למוצר",
-    description: "צור דף נחיתה מודרני עם אנימציות ועיצוב רספונסיבי",
-    longDescription: "",
+    title: "אתר בית אישי יצירתי",
+    description: "צרו אתר בית ייחודי עם 2 עמודים - לבית הספר, למשפחה, לתחביב או לספר את הסיפור שלכם",
+    longDescription: "בחרו נושא שמעניין אתכם ובנו אתר בית מקורי עם 2 עמודים בלבד! זה יכול להיות:\n• אתר למועדון הספרים של המשפחה (עמוד ראשי + רשימת ספרים)\n• דף לתיעוד הרפתקאות הטיולים שלכם (עמוד בית + גלריה)\n• אתר לחנות הממתקים החלומית שלכם (עמוד ראשי + תפריט)\n• פורטל לסיפורי הילדות שלכם (עמוד בית + סיפור)\n• אתר לפרויקט הקהילתי שלכם (עמוד ראשי + פרטים)\n• דף הביתה של חברת הזיכרונות המשפחתית (עמוד בית + שירותים)\n\nהמטרה היא ללמוד HTML/CSS דרך יצירת משהו אישי ומשמעותי בקנה מידה קטן ומנוהל!",
     difficulty: "Beginner" as const,
     estimatedTime: "2-3 שעות",
-    skills: ["HTML", "CSS", "Flexbox", "Grid"],
+    skills: ["HTML", "CSS", "Flexbox", "Grid", "יצירתיות"],
     featured: false,
+    videoUrl: "https://www.youtube.com/watch?v=G3e-cpL7ofc",
+    demoUrl: "https://example-portfolio.netlify.app",
+    tutorialUrl: "https://developer.mozilla.org/en-US/docs/Learn/HTML"
   },
   {
     id: "year-1-frontend-calculator",
