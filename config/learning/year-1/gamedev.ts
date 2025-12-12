@@ -65,5 +65,35 @@ export const config = {
         },
       ],
     },
+    {
+      title: "Going further",
+      blocks: [
+        {
+          id: "blender-intro",
+          type: "video" as const,
+          title: "Making a dounut in blender",
+          youtubeId: "-tbSCMbJA6o",
+          description: "An excelent tutorial to get started with blender",
+        },
+        {
+          id: "krita-intro",
+          type: "video" as const,
+          title: "Game dev with Krita",
+          youtubeId: "E8h4rMlQjKk",
+          description: "Learn how to make 2d games with krita",
+        }
+      ]
+    },
+    {
+      title: "Remake your first project, or make a new one",
+      blocks: [
+        {
+          type: "text" as const,
+          title: "Final Project",
+          content:
+            "Use everything you've learned to remake one of your earlier projects with improvements, or start a new game project from scratch applying all the concepts covered in this year.",
+        }
+      ]
+    }
   ],
 };
