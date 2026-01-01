@@ -1,27 +1,27 @@
 export const config = {
   title: "פיתוח Backend מתקדם - שנה 2",
-  description: "למד ארכיטקטורות Backend מורכבות ומיקרו-שירותים",
+  description: "בניית שרתים מתקדמים ואבטחת מידע",
   sections: [
     {
-      title: "מיקרו-שירותים וארכיטקטורה",
+      title: "אבטחת מידע",
       blocks: [
         {
           type: "video" as const,
-          title: "Microservices Architecture",
-          youtubeId: "y8OnoxKotPQ",
-          description: "מבוא לארכיטקטורת מיקרו-שירותים",
-        },
-        {
-          type: "text" as const,
-          title: "מיקרו-שירותים",
-          content:
-            "מיקרו-שירותים הם גישה ארכיטקטונית לפיתוח אפליקציות כסט של שירותים קטנים ועצמאיים:\n\n1. כל שירות רץ בתהליך נפרד\n2. תקשורת דרך APIs מוגדרים היטב\n3. עצמאות בפיתוח ובפריסה\n4. שימוש בטכנולוגיות שונות לכל שירות\n\nיתרונות: גמישות, מדרגיות, עצמאות\nחסרונות: מורכבות, ניהול רשת, חלוקת נתונים",
+          title: "מפתחות JWT",
+          youtubeId: "Y2H3DXDeS3Q",
+          description: "מפתחות JWT הן כלי חשוב מאוד להצפנה",
         },
         {
           type: "link" as const,
-          title: "Martin Fowler - Microservices",
-          url: "https://martinfowler.com/articles/microservices.html",
-          description: "מאמר יסודי על מיקרו-שירותים",
+          title: "OWASP WebGoat - התקנה",
+          url: "https://owasp.org/www-project-webgoat/",
+          description: "הורדה והתקנה של WebGoat לצורך תרגול פגיעויות",
+        },
+        {
+          type: "text" as const,
+          title: "השלמת WebGoat - משימות והנחיות",
+          content:
+            "מטרת התרגול: ללמוד ולהתגבר על פגיעויות נפוצות דרך תרגולים ב-WebGoat.\n\nהנחיות בסיסיות:\n1. הורד והרץ את WebGoat מהקישור הנסופק\n2. פתח את הממשק בכתובת http://localhost:8080 והכנס משתמש חדש\n3. עבוד על תרגילים בסדר הבא: Authentication, Injection, Access Control, Session Management\n4. רשום תובנות לכל תרגיל: מה הגורם לפגיעה וכיצד לתקן\n5. השתמש בכלים כמו Burp Suite למעקב ותיעוד התקפות\n\nהשלמת התרגול: סמן כל מודול כמושלם כשאתה מצליח לנצל ולתקן את הפגיעות ואתה מסוגל לתעד את הפתרון",
         },
       ],
     },
