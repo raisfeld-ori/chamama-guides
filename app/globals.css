@@ -180,6 +180,24 @@
     }
   }
 
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
   .animate-shimmer-slide {
     animation: shimmer-slide var(--speed) ease-in-out infinite alternate;
   }
@@ -194,6 +212,14 @@
 
   .animate-shimmer {
     animation: shimmer 3s linear infinite;
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
   }
 
   .gradient-green-shimmer {
