@@ -56,6 +56,12 @@ export default function LearningYearPage() {
     }
   };
 
+  const getOriginalVideoUrl = (value: string) => {
+    if (!value) return "";
+    if (value.startsWith("http")) return value;
+    return `https://www.youtube.com/watch?v=${normalizeYoutubeId(value)}`;
+  };
+
   if (isLoading) {
     return <Loading variant="default" text="טוען תוכן למידה..." />;
   }
@@ -214,22 +220,46 @@ export default function LearningYearPage() {
                           </SheetTrigger>
                           <SheetContent
                             side="bottom"
-                            className="h-[90vh] w-[80svw] max-w-none left-1/2 right-auto -translate-x-1/2 p-0"
+                            className="h-[88svh] w-[96vw] sm:w-[90vw] md:w-[85vw] max-w-5xl left-1/2 right-auto -translate-x-1/2 rounded-t-2xl sm:rounded-t-2xl border border-emerald-200 p-0 overflow-hidden"
                           >
-                            <div className="flex flex-col h-full">
-                              <div className="p-4 border-b">
-                                <h2 className="text-lg font-black text-emerald-700 text-right">
+                            <div className="flex h-full flex-col bg-white">
+                              <div className="border-b border-emerald-100 px-4 py-3 sm:px-6">
+                                <h2 className="pr-8 text-base sm:text-lg font-black text-emerald-700 text-right leading-tight">
                                   {block.title}
                                 </h2>
+                                {block.description && (
+                                  <p className="mt-1 text-xs sm:text-sm text-gray-600 text-right line-clamp-2">
+                                    {block.description}
+                                  </p>
+                                )}
                               </div>
-                              <div className="flex-1 bg-black">
-                                <iframe
-                                  className="w-full h-full"
-                                  src={`https://www.youtube.com/embed/${normalizeYoutubeId(block.youtubeId)}?autoplay=1&rel=0`}
-                                  title={block.title}
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowFullScreen
-                                />
+                              <div className="flex-1 bg-black/95 p-2 sm:p-4">
+                                <div className="mx-auto flex h-full w-full max-w-4xl items-center justify-center">
+                                  <div className="w-full max-h-full aspect-video overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+                                    <iframe
+                                      className="h-full w-full"
+                                      src={`https://www.youtube.com/embed/${normalizeYoutubeId(block.youtubeId)}?autoplay=1&rel=0`}
+                                      title={block.title}
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowFullScreen
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="border-t border-emerald-100 bg-white px-4 py-3 sm:px-6">
+                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                                  <a
+                                    href={getOriginalVideoUrl(block.youtubeId)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center rounded-lg border border-emerald-300 px-4 py-2 text-sm font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
+                                  >
+                                    פתחו את הסרטון באתר המקורי
+                                  </a>
+                                  <p className="text-xs text-gray-500 sm:text-sm">
+                                    במובייל מומלץ לפתוח את הקישור ישירות באפליקציה או בדפדפן.
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </SheetContent>
