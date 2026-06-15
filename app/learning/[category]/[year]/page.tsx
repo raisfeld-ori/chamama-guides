@@ -9,6 +9,7 @@ import { ProjectLink } from "@/components/learning/project-link";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ArrowLeft, Play, FileText, ExternalLink, Code } from "lucide-react";
 import { useLoading } from "@/contexts/LoadingContext";
 import { Loading } from "@/components/ui/loading";
@@ -31,6 +32,7 @@ export default function LearningYearPage() {
   const year = params.year as string;
   const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [openVideoId, setOpenVideoId] = useState<string | null>(null);
 
   useEffect(() => {
     const loadContent = async () => {
@@ -40,6 +42,19 @@ export default function LearningYearPage() {
     };
     loadContent();
   }, [category, year]);
+
+  const normalizeYoutubeId = (value: string) => {
+    if (!value) return "";
+    if (!value.startsWith("http")) return value;
+    try {
+      const url = new URL(value);
+      if (url.searchParams.get("v")) return url.searchParams.get("v") || "";
+      const segments = url.pathname.split("/").filter(Boolean);
+      return segments[segments.length - 1] || value;
+    } catch {
+      return value;
+    }
+  };
 
   if (isLoading) {
     return <Loading variant="default" text="טוען תוכן למידה..." />;
@@ -167,31 +182,60 @@ export default function LearningYearPage() {
                         </div>
                       ) : null}
 
-                      {/* Title */}
-                      <h3 className={`text-base font-black mb-2 ${colors.text}`}>
-                        {block.title}
-                      </h3>
-
-                      {/* Description */}
-                      {block.description && (
-                        <p className="text-xs text-gray-600 font-medium mb-3 line-clamp-2">
-                          {block.description}
-                        </p>
-                      )}
-
                       {/* Type-specific content */}
-                      {block.type === 'video' && block.id && (
-                        <Button 
-                          size="sm" 
-                          className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-xs"
-                          asChild
+                      {block.type === 'video' && block.youtubeId && (
+                        <Sheet
+                          open={openVideoId === normalizeYoutubeId(block.youtubeId)}
+                          onOpenChange={(open) =>
+                            setOpenVideoId(open ? normalizeYoutubeId(block.youtubeId) : null)
+                          }
                         >
-                          <Link href={`/learning/detail/${category}/${year}/${block.id}`}>
-                            <Play className="w-3 h-3 ml-1" />
-                            צפה בסרטון
-                          </Link>
-                        </Button>
+                          <h3 className={`mb-1 text-sm font-black ${colors.text}`}>
+                            {block.title}
+                          </h3>
+                          {block.description && (
+                            <p className="mb-3 text-xs text-gray-700 font-medium leading-relaxed">
+                              {block.description}
+                            </p>
+                          )}
+                          <SheetTrigger asChild>
+                            <Button
+                              size="sm"
+                              className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-xs"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setOpenVideoId(normalizeYoutubeId(block.youtubeId));
+                              }}
+                            >
+                              <Play className="w-3 h-3 ml-1" />
+                              צפה בסרטון
+                            </Button>
+                          </SheetTrigger>
+                          <SheetContent
+                            side="bottom"
+                            className="h-[90vh] w-[80svw] max-w-none left-1/2 right-auto -translate-x-1/2 p-0"
+                          >
+                            <div className="flex flex-col h-full">
+                              <div className="p-4 border-b">
+                                <h2 className="text-lg font-black text-emerald-700 text-right">
+                                  {block.title}
+                                </h2>
+                              </div>
+                              <div className="flex-1 bg-black">
+                                <iframe
+                                  className="w-full h-full"
+                                  src={`https://www.youtube.com/embed/${normalizeYoutubeId(block.youtubeId)}?autoplay=1&rel=0`}
+                                  title={block.title}
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                />
+                              </div>
+                            </div>
+                          </SheetContent>
+                        </Sheet>
                       )}
+
 
                       {block.type === 'link' && block.id && (
                         <Button 

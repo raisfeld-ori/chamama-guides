@@ -36,7 +36,7 @@ export default function Home() {
       lightColor: "#ecfccb",
     },
     {
-      icon: Briefcase,
+      icon: Briefcase,  
       title: "תעסוקה",
       description:
         "הדרכה קריירה, הכנה לראיונות ואסטרטגיות חיפוש עבודה לכל שנת לימוד.",
