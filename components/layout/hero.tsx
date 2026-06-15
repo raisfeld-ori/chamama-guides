@@ -9,13 +9,22 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50">
       {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: 0.28,
+            background: "linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.14) 35%, rgba(16,185,129,0.14) 56%, rgba(255,255,255,0.05) 76%, rgba(255,255,255,0) 100%)",
+            backgroundSize: "220% 220%",
+            animation: "shimmer 6s linear infinite",
+          }}
+        />
         <div className="absolute top-20 right-10 h-72 w-72 rounded-full bg-emerald-200/30 blur-3xl animate-pulse" />
         <div className="absolute bottom-20 left-10 h-96 w-96 rounded-full bg-teal-200/30 blur-3xl animate-pulse delay-1000" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-green-200/20 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+      <div className="relative z-10 container mx-auto px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <div className="mx-auto max-w-5xl text-center">
           {/* Badge */}
           <motion.div
@@ -91,7 +100,7 @@ export function Hero() {
       </div>
 
       {/* Decorative wave at bottom */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-10">
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="white" />
         </svg>

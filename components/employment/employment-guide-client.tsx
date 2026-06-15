@@ -56,6 +56,7 @@ const sectionColors = [
 
 export function EmploymentGuideClient({ guide, year }: { guide: any; year: string }) {
     const yearNum = year.split("-")[1];
+    const isFreelancingTrack = year === "year-4";
 
     // Position patterns: left, center, right (like learning pages)
     const positions = ['left', 'center', 'right'];
@@ -104,7 +105,7 @@ export function EmploymentGuideClient({ guide, year }: { guide: any; year: strin
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border-2 border-emerald-200 shadow-sm mb-6">
                             <Briefcase className="w-4 h-4 text-emerald-600" />
                             <span className="text-sm font-bold text-emerald-700">
-                                מדריך תעסוקה • שנה {yearNum}
+                                {isFreelancingTrack ? "מדריך תעסוקה • Freelancing" : `מדריך תעסוקה • שנה ${yearNum}`}
                             </span>
                         </div>
 
@@ -216,7 +217,9 @@ export function EmploymentGuideClient({ guide, year }: { guide: any; year: strin
                                 <div className="w-2 h-2 rounded-full bg-white" />
                             </div>
                             <div className="pt-12">
-                                <p className="text-sm font-black text-emerald-700">🎯 המסע שלכם בשנה {yearNum} מתחיל כאן!</p>
+                                <p className="text-sm font-black text-emerald-700">
+                                    {isFreelancingTrack ? "🎯 המסע שלכם בפרילנסינג מתחיל כאן!" : `🎯 המסע שלכם בשנה ${yearNum} מתחיל כאן!`}
+                                </p>
                             </div>
                         </div>
                     </BlurFade>
