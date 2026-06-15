@@ -134,8 +134,8 @@ export default function LearningYearPage() {
 
         {/* Roadmap */}
         <div className="relative max-w-5xl mx-auto">
-          {/* Vertical dotted line */}
-          <div className="absolute right-1/2 top-0 bottom-0 w-0.5 border-r-2 border-dashed border-emerald-300" />
+          {/* Vertical dotted line - desktop only */}
+          <div className="hidden sm:block absolute right-1/2 top-0 bottom-0 w-0.5 border-r-2 border-dashed border-emerald-300" />
 
           {allBlocks.map((block: any, index: number) => {
             const Icon = getBlockIcon(block.type);
@@ -146,24 +146,24 @@ export default function LearningYearPage() {
 
             return (
               <BlurFade key={index} delay={0.2 + index * 0.05} inView>
-                <div className="relative mb-12">
-                  {/* Connector dot on the center line */}
-                  <div className={`absolute right-1/2 top-8 w-4 h-4 rounded-full ${colors.dot} border-4 border-white shadow-lg transform translate-x-1/2 z-10`} />
+                <div className="relative mb-8 sm:mb-12">
+                  {/* Connector dot on the center line - desktop only */}
+                  <div className={`hidden sm:block absolute right-1/2 top-8 w-4 h-4 rounded-full ${colors.dot} border-4 border-white shadow-lg transform translate-x-1/2 z-10`} />
                   
-                  {/* Horizontal dotted line to content */}
+                  {/* Horizontal dotted line to content - desktop only */}
                   {!isCenter && (
                     <div 
-                      className={`absolute top-9 h-0.5 border-t-2 border-dashed border-emerald-300 ${
+                      className={`hidden sm:block absolute top-9 h-0.5 border-t-2 border-dashed border-emerald-300 ${
                         isLeft ? 'right-1/2 left-[8%]' : 'left-1/2 right-[8%]'
                       }`}
                     />
                   )}
 
                   {/* Content card */}
-                  <div className={`relative ${
-                    isLeft ? 'mr-auto ml-0 pr-[52%]' : 
-                    isRight ? 'ml-auto mr-0 pl-[52%]' : 
-                    'mx-auto max-w-md'
+                  <div className={`relative mx-2 sm:mx-0 ${
+                    isLeft ? 'sm:mr-auto sm:ml-0 sm:pr-[52%]' : 
+                    isRight ? 'sm:ml-auto sm:mr-0 sm:pl-[52%]' : 
+                    'sm:mx-auto sm:max-w-md'
                   }`}>
                     <div className={`group rounded-xl border-2 ${colors.border} ${colors.bg} p-4 shadow-md hover:shadow-xl transition-all hover:scale-105 ${
                       isCenter ? 'text-center' : isLeft ? 'text-right' : 'text-left'

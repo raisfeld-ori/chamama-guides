@@ -83,11 +83,11 @@ export function YearSelector({ category, basePath }: YearSelectorProps) {
         />
       </div>
 
-      <section className="relative flex-1 flex flex-col container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <section className="relative flex-1 flex flex-col container mx-auto px-4 pt-6 pb-3 sm:py-8 sm:px-6 lg:px-8">
         {/* Header with title */}
         <BlurFade delay={0.05}>
-          <div className="flex flex-col items-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-black text-emerald-700 mb-3">
+          <div className="flex flex-col items-center mb-2 sm:mb-8">
+            <h2 className="text-2xl sm:text-2xl md:text-3xl font-black text-emerald-700 mb-1 sm:mb-3">
               {categoryTitles[category] || category}
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full"></div>
@@ -95,15 +95,39 @@ export function YearSelector({ category, basePath }: YearSelectorProps) {
         </BlurFade>
 
         <BlurFade delay={0.1}>
-          <h1 className="mb-3 text-center text-4xl font-black sm:text-5xl md:text-6xl gradient-green-shimmer animate-shimmer">
+          <h1 className="mb-1 sm:mb-3 text-center text-2xl font-black sm:text-5xl md:text-6xl gradient-green-shimmer animate-shimmer">
             בחרו את השנה שלכם
           </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-center text-base text-gray-600 font-medium">
+          <p className="mx-auto mb-3 sm:mb-8 max-w-2xl text-center text-sm sm:text-base text-gray-600 font-medium">
             כל שנה מכילה תכנים מותאמים לרמת הידע שלכם 🎯
           </p>
         </BlurFade>
 
-        <div className="flex-1 grid gap-6 grid-cols-3 content-center max-w-4xl mx-auto">
+        {/* Mobile layout — large stacked tap-target cards */}
+        <div className="flex flex-col gap-3 sm:hidden w-full mt-2">
+          {years.map((year, index) => (
+            <BlurFade key={year.id} delay={0.2 + index * 0.1} inView>
+              <Link
+                href={`/${basePath}/${category}/${year.id}`}
+                className="flex items-center gap-4 rounded-2xl px-6 py-5 transition-all active:scale-[0.98] hover:scale-[1.02]"
+                style={{ backgroundColor: year.lightColor }}
+              >
+                <div
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-2xl font-black text-white shadow-md"
+                  style={{ backgroundColor: year.color }}
+                >
+                  {index + 1}
+                </div>
+                <span className="text-2xl font-black" style={{ color: year.color }}>
+                  {year.title}
+                </span>
+              </Link>
+            </BlurFade>
+          ))}
+        </div>
+
+        {/* Desktop layout — SVG grid */}
+        <div className="hidden sm:grid flex-1 gap-6 grid-cols-3 content-center max-w-4xl mx-auto w-full">
           {years.map((year, index) => (
             <BlurFade key={year.id} delay={0.2 + index * 0.1} inView>
               <Link href={`/${basePath}/${category}/${year.id}`} className="group cursor-pointer transition-all hover:scale-105">
@@ -189,7 +213,7 @@ export function YearSelector({ category, basePath }: YearSelectorProps) {
               </Link>
             </BlurFade>
           ))}
-        </div>
+        </div>{/* end desktop grid */}
       </section>
 
       {/* Bottom decorative SVG - Full width, no padding */}
