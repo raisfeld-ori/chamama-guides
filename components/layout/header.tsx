@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown, Sparkles, Trophy } from "lucide-react";
+import { Menu, X, ChevronDown, Sparkles, Trophy, BookOpen, Code2, Briefcase, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -19,6 +19,7 @@ interface NavItem {
   href?: string;
   description?: string;
   items?: NavItem[];
+  navIcon?: React.ReactNode;
   icon?: string;
   svg?: React.ReactNode;
 }
@@ -26,6 +27,7 @@ interface NavItem {
 const navigationItems: NavItem[] = [
   {
     title: "למידה",
+    navIcon: <BookOpen className="h-4 w-4" />,
     items: [
       {
         title: "פרונטאנד",
@@ -55,6 +57,7 @@ const navigationItems: NavItem[] = [
   },
   {
     title: "פרויקטים",
+    navIcon: <Code2 className="h-4 w-4" />,
     items: [
       {
         title: "פרונטאנט",
@@ -84,6 +87,7 @@ const navigationItems: NavItem[] = [
   },
   {
     title: "תעסוקה",
+    navIcon: <Briefcase className="h-4 w-4" />,
     items: [
       {
         title: "שנה 1",
@@ -128,14 +132,14 @@ const navigationItems: NavItem[] = [
         ),
       },
       {
-        title: "שנה 4",
+        title: "Freelancing",
         href: "/employment/year-4",
-        description: "מנהיגות טכנית",
+        description: "עצמאות ועבודה עם לקוחות",
         svg: (
           <svg viewBox="0 0 60 60" className="w-full h-full">
             <circle cx="30" cy="30" r="28" fill="#ecfccb" />
             <path d="M30,18 L35,28 L45,28 L37,35 L40,45 L30,38 L20,45 L23,35 L15,28 L25,28 Z" fill="#84cc16" />
-            <text x="30" y="48" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#84cc16">4</text>
+            <text x="30" y="48" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#84cc16">F</text>
           </svg>
         ),
       },
@@ -144,6 +148,7 @@ const navigationItems: NavItem[] = [
   {
     title: "אודות",
     href: "/about",
+    navIcon: <Info className="h-4 w-4" />,
   },
 ];
 
@@ -223,6 +228,7 @@ export function Header() {
                       activeMenu === item.title && "text-emerald-600"
                     )}
                   >
+                    <span className="text-emerald-600/90">{item.navIcon}</span>
                     {item.title}
                     <ChevronDown className={cn(
                       "h-3 w-3 transition-transform",
@@ -237,8 +243,9 @@ export function Header() {
                   <Link
                     key={item.title}
                     href={item.href || "#"}
-                    className="group relative inline-flex h-10 items-center justify-center px-4 py-2 text-sm font-bold transition-all hover:text-emerald-600"
+                    className="group relative inline-flex h-10 items-center justify-center gap-1.5 px-4 py-2 text-sm font-bold transition-all hover:text-emerald-600"
                   >
+                    <span className="text-emerald-600/90">{item.navIcon}</span>
                     {item.title}
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500 opacity-0 transition-all group-hover:opacity-100" />
                   </Link>
@@ -249,16 +256,23 @@ export function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="group flex items-center gap-3 transition-transform hover:scale-105"
+              className="group flex items-center gap-2.5 sm:gap-3 transition-all hover:scale-[1.02]"
             >
-              <span className="gradient-green-shimmer animate-shimmer text-2xl font-black tracking-tight sm:text-3xl">
-                מדריכי חממה
-              </span>
-              <img
-                src="/logo.png"
-                alt="חממה"
-                className="h-12 w-12 object-contain transition-transform group-hover:rotate-12"
-              />
+              <div className="flex items-center justify-center rounded-xl bg-white p-1.5">
+                <img
+                  src="/logo.png"
+                  alt="חממה"
+                  className="h-8 w-8 sm:h-9 sm:w-9 object-contain transition-transform group-hover:rotate-6"
+                />
+              </div>
+              <div className="leading-tight text-right">
+                <span className="block gradient-green-shimmer animate-shimmer text-xl font-black tracking-tight sm:text-2xl">
+                  מדריכי חממה
+                </span>
+                <span className="hidden sm:block text-[11px] font-bold text-emerald-700/80">
+                  למידה • פרויקטים • תעסוקה
+                </span>
+              </div>
             </Link>
 
             {/* Mobile Menu */}
@@ -290,8 +304,9 @@ export function Header() {
                     <div key={item.title} className="space-y-2">
                       {item.items ? (
                         <>
-                          <div className="text-base font-black text-emerald-700 px-4 py-2 bg-emerald-100 rounded-lg text-right">
-                            {item.title}
+                          <div className="text-base font-black text-emerald-700 px-4 py-2 bg-emerald-100 rounded-lg text-right inline-flex items-center justify-end gap-2 w-full">
+                            <span>{item.title}</span>
+                            <span>{item.navIcon}</span>
                           </div>
                           <div className="mr-2 space-y-1 border-r-2 border-emerald-300 pr-3">
                             {item.items.map((subItem) => (
@@ -322,8 +337,9 @@ export function Header() {
                         <Link
                           href={item.href || "#"}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center justify-center rounded-lg px-4 py-3 text-base font-black transition-all bg-white hover:bg-emerald-50 shadow-sm hover:shadow-md border-2 border-emerald-200 hover:border-emerald-400 text-emerald-700 hover:text-emerald-800"
+                          className="flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-base font-black transition-all bg-white hover:bg-emerald-50 shadow-sm hover:shadow-md border-2 border-emerald-200 hover:border-emerald-400 text-emerald-700 hover:text-emerald-800"
                         >
+                          <span>{item.navIcon}</span>
                           {item.title}
                         </Link>
                       )}

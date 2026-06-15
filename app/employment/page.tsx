@@ -40,9 +40,9 @@ const years = [
     },
     { 
         id: "year-4", 
-        title: "שנה 4", 
-        subtitle: "קריירה ותעסוקה",
-        description: "להיכנס לשוק העבודה בביטחון מלא",
+        title: "Freelancing", 
+        subtitle: "פרילנסינג ועבודה עם לקוחות",
+        description: "איך להתחיל עצמאות מקצועית, למצוא לקוחות ולעבוד נכון",
         color: "#84cc16", 
         lightColor: "#ecfccb"
     }
